@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <title>ChocoLuxe - Socola Thủ Công Cao Cấp</title>
+ <style>
+ * {
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+ font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+ }
+
+ :root {
+ --brown-dark: #3e2723;
+ --brown: #5d4037;
+ --brown-light: #8d6e63;
+ --cream: #fff8f0;
+ --gold: #d4a373;
+ --pink: #f8d7da;
+ --white: #ffffff;
+ --shadow: 0 10px 30px rgba(62, 39, 35, 0.15);
+ }
+
+ body {
+ background: linear-gradient(180deg, #fff8f0, #fdf0e6);
+ color: var(--brown-dark);
+ line-height: 1.6;
+ }
+
+ a {
+ text-decoration: none;
+ color: inherit;
+ }
+
+ img {
+ max-width: 100%;
+ display: block;
+ }
+
+ .container {
+ width: min(1200px, 92%);
+ margin: auto;
+ }
+
+ /* Header */
+ header {
+ position: sticky;
+ top: 0;
+ z-index: 999;
+ background: rgba(255, 248, 240, 0.92);
+ backdrop-filter: blur(10px);
+ box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+ }
+
+ .navbar {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ padding: 16px 0;
+ }
+
+ .logo {
+ font-size: 28px;
+ font-weight: 800;
+ color: var(--brown-dark);
+ letter-spacing: 1px;
+ }
+
+ .logo span {
+ color: var(--gold);
+ }
+
+ .nav-links {
+ display: flex;
+ gap: 24px;
+ align-items: center;
+ }
+
+ .nav-links a {
+ font-weight: 600;
+ transition: 0.3s;
+ }
+
+ .nav-links a:hover {
+ color: var(--gold);
+ }
+
+ .cart-btn {
+ background: var(--brown-dark);
+ color: white;
+ border: none;
+ padding: 10px 16px;
+ border-radius: 999px;
+ cursor: pointer;
+ font-weight: 600;
+ transition: 0.3s;
+ }
+
+ .cart-btn:hover {
+ background: var(--gold);
+ color: var(--brown-dark);
+ transform: translateY(-2px);
+ }
+
+ /* Hero */
+ .hero {
+ padding: 80px 0 50px;
+ }
+
+ .hero-content {
+ display: grid;
+ grid-template-columns: 1.1fr 1fr;
+ gap: 40px;
+ align-items: center;
+ }
+
+ .hero-text h1 {
+ font-size: 54px;
+ line-height: 1.1;
+ margin-bottom: 20px;
+ color: var(--brown-dark);
+ }
+
+ .hero-text h1 span {
+ color: var(--gold);
+ }
+
+ .hero-text p {
+ font-size: 18px;
+ margin-bottom: 28px;
+ color: #6d4c41;
+ max-width: 600px;
+ }
+
+ .hero-buttons {
+ display: flex;
+ gap: 16px;
+ flex-wrap: wrap;
+ }
+
+ .btn {
+ padding: 14px 24px;
+ border-radius: 999px;
+ font-weight: 700;
+ border: none;
+ cursor: pointer;
+ transition: 0.3s;
+ font-size: 15px;
+ }
+
+ .btn-primary {
+ background: var(--brown-dark);
+ color: white;
+ box-shadow: var(--shadow);
+ }
+
+ .btn-primary:hover {
+ background: var(--gold);
+ color: var(--brown-dark);
+ transform: translateY(-3px);
+ }
+
+ .btn-secondary {
+ background: white;
+ color: var(--brown-dark);
+ border: 2px solid #ecd8c6;
+ }
+
+ .btn-secondary:hover {
+ border-color: var(--gold);
+ transform: translateY(-3px);
+ }
+
+ .hero-image {
+ position: relative;
+ }
+
+ .hero-card {
+ background: linear-gradient(145deg, #6d4c41, #3e2723);
+ border-radius: 30px;
+ padding: 30px;
+ box-shadow: 0 25px 50px rgba(62, 39, 35, 0.25);
+ position: relative;
+ overflow: hidden;
+ }
+
+ .hero-card::before {
+ content: "";
+ position: absolute;
+ width: 180px;
+ height: 180px;
+ background: rgba(255,255,255,0.08);
+ border-radius: 50%;
+ top: -40px;
+ right: -40px;
+ }
+
+ .hero-card img {
+ border-radius: 20px;
+ height: 420px;
+ width: 100%;
+ object-fit: cover;
+ }
+
+ .floating-badge {
+ position: absolute;
+ bottom: 20px;
+ left: -10px;
+ background: white;
+ padding: 14px 18px;
+ border-radius: 18px;
+ box-shadow: var(--shadow);
+ font-weight: 700;
+ color: var(--brown-dark);
+ }
+
+ /* Section */
+ section {
+ padding: 70px 0;
+ }
+
+ .section-title {
+ text-align: center;
+ margin-bottom: 14px;
+ font-size: 38px;
+ color: var(--brown-dark);
+ }
+
+ .section-subtitle {
+ text-align: center;
+ max-width: 700px;
+ margin: 0 auto 40px;
+ color: #795548;
+ }
+
+ /* Features */
+ .features {
+ display: grid;
+ grid-template-columns: repeat(3, 1fr);
+ gap: 24px;
+ }
+
+ .feature-card {
+ background: white;
+ padding: 28px;
+ border-radius: 24px;
+ box-shadow: var(--shadow);
+ transition: 0.3s;
+ }
+
+ .feature-card:hover {
+ transform: translateY(-8px);
+ }
+
+ .feature-icon {
+ font-size: 38px;
+ margin-bottom: 14px;
+ }
+
+ .feature-card h3 {
+ margin-bottom: 10px;
+ color: var(--brown-dark);
+ }
+
+ /* Products */
+ .products-grid {
+ display: grid;
+ grid-template-columns: repeat(3, 1fr);
+ gap: 28px;
+ }
+
+ .product-card {
+ background: white;
+ border-radius: 26px;
+ overflow: hidden;
+ box-shadow: var(--shadow);
+ transition: 0.3s;
+ }
+
+ .product-card:hover {
+ transform: translateY(-10px);
+ }
+
+ .product-image {
+ height: 230px;
+ overflow: hidden;
+ }
+
+ .product-image img {
+ width: 100%;
+ height: 100%;
+ object-fit: cover;
+ transition: 0.4s;
+ }
+
+ .product-card:hover .product-image img {
+ transform: scale(1.08);
+ }
+
+ .product-info {
+ padding: 22px;
+ }
+
+ .product-info h3 {
+ margin-bottom: 8px;
+ font-size: 22px;
+ color: var(--brown-dark);
+ }
+
+ .product-info p {
+ color: #795548;
+ margin-bottom: 14px;
+ min-height: 52px;
+ }
+
+ .product-meta {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ margin-top: 10px;
+ }
+
+ .price {
+ font-size: 22px;
+ font-weight: 800;
+ color: var(--gold);
+ }
+
+ .add-cart {
+ background: var(--brown-dark);
+ color: white;
+ border: none;
+ padding: 10px 16px;
+ border-radius: 14px;
+ cursor: pointer;
+ font-weight: 700;
+ transition: 0.3s;
+ }
+
+ .add-cart:hover {
+ background: var(--gold);
+ color: var(--brown-dark);
+ }
+
+ /* Promo Banner */
+ .promo {
+ background: linear-gradient(135deg, #4e342e, #7b5e57);
+ border-radius: 30px;
+ padding: 50px;
+ color: white;
+ display: grid;
+ grid-template-columns: 1.3fr 1fr;
+ gap: 30px;
+ align-items: center;
+ box-shadow: var(--shadow);
+ }
+
+ .promo h2 {
+ font-size: 40px;
+ margin-bottom: 14px;
+ }
+
+ .promo p {
+ color: #f7e6d5;
+ margin-bottom: 22px;
+ max-width: 650px;
+ }
+
+ .promo-tag {
+ display: inline-block;
+ background: rgba(255,255,255,0.12);
+ padding: 8px 14px;
+ border-radius: 999px;
+ margin-bottom: 14px;
+ font-weight: 700;
+ }
+
+ .promo-box {
+ background: rgba(255,255,255,0.1);
+ border: 1px solid rgba(255,255,255,0.15);
+ border-radius: 24px;
+ padding: 30px;
+ text-align: center;
+ backdrop-filter: blur(6px);
+ }
+
+ .promo-box h3 {
+ font-size: 22px;
+ margin-bottom: 12px;
+ }
+
+ .promo-box .big {
+ font-size: 48px;
+ font-weight: 900;
+ color: #ffd6a5;
+ }
+
+ /* Testimonials */
+ .testimonials {
+ display: grid;
+ grid-template-columns: repeat(3, 1fr);
+ gap: 24px;
+ }
+
+ .testimonial-card {
+ background: white;
+ border-radius: 24px;
+ padding: 24px;
+ box-shadow: var(--shadow);
+ }
+
+ .testimonial-card p {
+ color: #6d4c41;
+ margin-bottom: 16px;
+ }
+
+ .testimonial-user {
+ font-weight: 700;
+ color: var(--brown-dark);
+ }
+
+ /* Footer */
+ footer {
+ margin-top: 40px;
+ background: var(--brown-dark);
+ color: #f9e9da;
+ padding: 50px 0 25px;
+ }
+
+ .footer-grid {
+ display: grid;
+ grid-template-columns: 2fr 1fr 1fr 1.2fr;
+ gap: 30px;
+ margin-bottom: 30px;
+ }
+
+ .footer-grid h4 {
+ margin-bottom: 14px;
+ color: white;
+ }
+
+ .footer-grid p,
+ .footer-grid a {
+ color: #f0d9c7;
+ display: block;
+ margin-bottom: 10px;
+ font-size: 15px;
+ }
+
+ .footer-grid a:hover {
+ color: #ffd6a5;
+ }
+
+ .copyright {
+ border-top: 1px solid rgba(255,255,255,0.12);
+ padding-top: 20px;
+ text-align: center;
+ color: #e8cbb7;
+ font-size: 14px;
+ }
+
+ /* Modal Cart */
+ .cart-modal {
+ position: fixed;
+ top: 0;
+ right: -420px;
+ width: 400px;
+ max-width: 100%;
+ height: 100vh;
+ background: white;
+ box-shadow: -10px 0 30px rgba(0,0,0,0.18);
+ z-index: 2000;
+ transition: 0.4s ease;
+ padding: 24px;
+ display: flex;
+ flex-direction: column;
+ }
+
+ .cart-modal.active {
+ right: 0;
+ }
+
+ .cart-header {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ margin-bottom: 20px;
+ }
+
+ .cart-header h3 {
+ font-size: 24px;
+ color: var(--brown-dark);
+ }
+
+ .close-cart {
+ font-size: 28px;
+ cursor: pointer;
+ color: var(--brown-dark);
+ }
+
+ .cart-items {
+ flex: 1;
+ overflow-y: auto;
+ margin-bottom: 20px;
+ }
+
+ .cart-item {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ padding: 14px 0;
+ border-bottom: 1px solid #eee;
+ gap: 10px;
+ }
+
+ .cart-item-name {
+ font-weight: 700;
+ color: var(--brown-dark);
+ }
+
+ .cart-item-price {
+ color: var(--gold);
+ font-weight: 700;
+ }
+
+ .remove-item {
+ background: #fdecea;
+ color: #c62828;
+ border: none;
+ padding: 6px 10px;
+ border-radius: 10px;
+ cursor: pointer;
+ font-size: 12px;
+ }
+
+ .cart-footer {
+ border-top: 1px solid #eee;
+ padding-top: 16px;
+ }
+
+ .cart-total {
+ display: flex;
+ justify-content: space-between;
+ font-size: 20px;
+ font-weight: 800;
+ margin-bottom: 14px;
+ color: var(--brown-dark);
+ }
+
+ .checkout-btn {
+ width: 100%;
+ background: var(--brown-dark);
+ color: white;
+ border: none;
+ padding: 14px;
+ border-radius: 14px;
+ font-size: 16px;
+ font-weight: 700;
+ cursor: pointer;
+ }
+
+ .checkout-btn:hover {
+ background: var(--gold);
+ color: var(--brown-dark);
+ }
+
+ .overlay {
+ position: fixed;
+ inset: 0;
+ background: rgba(0,0,0,0.35);
+ opacity: 0;
+ visibility: hidden;
+ transition: 0.3s;
+ z-index: 1500;
+ }
+
+ .overlay.active {
+ opacity: 1;
+ visibility: visible;
+ }
+
+ .empty-cart {
+ color: #8d6e63;
+ text-align: center;
+ margin-top: 30px;
+ }
+
+ /* Responsive */
+ @media (max-width: 992px) {
+ .hero-content,
+ .promo,
+ .footer-grid {
+ grid-template-columns: 1fr;
+ }
+
+ .features,
+ .products-grid,
+ .testimonials {
+ grid-template-columns: repeat(2, 1fr);
+ }
+
+ .hero-text h1 {
+ font-size: 42px;
+ }
+ }
+
+ @media (max-width: 768px) {
+ .nav-links {
+ display: none;
+ }
+
+ .features,
+ .products-grid,
+ .testimonials {
+ grid-template-columns: 1fr;
+ }
+
+ .hero-text h1 {
+ font-size: 34px;
+ }
+
+ .section-title {
+ font-size: 30px;
+ }
+
+ .promo h2 {
+ font-size: 30px;
+ }
+
+ .cart-modal {
+ width: 100%;
+ }
+ }
+ </style>
+</head>
+<body>
+
+ <header>
+ <div class="container navbar">
+ <div class="logo">Choco<span>Luxe</span></div>
+ <nav class="nav-links">
+ <a href="#home">Trang chủ</a>
+ <a href="#about">Giới thiệu</a>
+ <a href="#products">Sản phẩm</a>
+ <a href="#reviews">Đánh giá</a>
+ <a href="#contact">Liên hệ</a>
+ </nav>
+ <button class="cart-btn" id="openCart">🛒 Giỏ hàng (<span id="cartCount">0</span>)</button>
+ </div>
+ </header>
+
+ <section class="hero" id="home">
+ <div class="container hero-content">
+ <div class="hero-text">
+ <h1>Socola thủ công <span>ngọt ngào</span> cho mọi khoảnh khắc</h1>
+ <p>
+ Khám phá bộ sưu tập socola cao cấp với nguyên liệu tuyển chọn, hương vị tinh tế
+ và thiết kế sang trọng. Hoàn hảo cho quà tặng, lễ kỷ niệm và những ngày thật đặc biệt.
+ </p>
+ <div class="hero-buttons">
+ <a href="#products"><button class="btn btn-primary">Mua ngay</button></a>
+ <a href="#about"><button class="btn btn-secondary">Xem thêm</button></a>
+ </div>
+ </div>
+ <div class="hero-image">
+ <div class="hero-card">
+ <img src="https://images.unsplash.com/photo-1549007994-cb92caebd54b?auto=format&fit=crop&w=900&q=80" alt="Socola cao cấp">
+ </div>
+ <div class="floating-badge">🍫 Bestseller số 1 tuần này</div>
+ </div>
+ </div>
+ </section>
+
+ <section id="about">
+ <div class="container">
+ <h2 class="section-title">Vì sao khách hàng yêu thích ChocoLuxe?</h2>
+ <p class="section-subtitle">
+ Không chỉ là socola, chúng tôi mang đến trải nghiệm thưởng thức đẳng cấp với chất lượng,
+ thẩm mỹ và cảm xúc trong từng viên kẹo.
+ </p>
+
+ <div class="features">
+ <div class="feature-card">
+ <div class="feature-icon">🍫</div>
+ <h3>Nguyên liệu cao cấp</h3>
+ <p>Socola tuyển chọn từ cacao chất lượng cao, kết hợp cùng hạt và trái cây tự nhiên.</p>
+ </div>
+ <div class="feature-card">
+ <div class="feature-icon">🎁</div>
+ <h3>Hộp quà sang trọng</h3>
+ <p>Thiết kế tinh tế, phù hợp làm quà tặng cho người thân, bạn bè và đối tác.</p>
+ </div>
+ <div class="feature-card">
+ <div class="feature-icon">🚚</div>
+ <h3>Giao hàng nhanh</h3>
+ <p>Đóng gói cẩn thận, giao hàng toàn quốc, đảm bảo socola luôn nguyên vẹn và đẹp mắt.</p>
+ </div>
+ </div>
+ </div>
+ </section>
+
+ <section id="products">
+ <div class="container">
+ <h2 class="section-title">Sản phẩm nổi bật</h2>
+ <p class="section-subtitle">
+ Chọn vị socola yêu thích của bạn từ bộ sưu tập đa dạng, hấp dẫn và chuẩn gu hiện đại.
+ </p>
+
+ <div class="products-grid">
+ <div class="product-card">
+ <div class="product-image">
+ <img src="https://images.unsplash.com/photo-1511381939415-e44015466834?auto=format&fit=crop&w=900&q=80" alt="Socola hạnh nhân">
+ </div>
+ <div class="product-info">
+ <h3>Socola Hạnh Nhân</h3>
+ <p>Vị socola đậm đà kết hợp hạnh nhân rang giòn, thơm ngon khó cưỡng.</p>
+ <div class="product-meta">
+ <div class="price">129.000đ</div>
+ <button class="add-cart" data-name="Socola Hạnh Nhân" data-price="129000">Thêm</button>
+ </div>
+ </div>
+ </div>
+
+ <div class="product-card">
+ <div class="product-image">
+ <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=900&q=80" alt="Socola dâu">
+ </div>
+ <div class="product-info">
+ <h3>Socola Dâu Tây</h3>
+ <p>Ngọt ngào, thanh mát cùng hương dâu dịu nhẹ, cực hợp làm quà tặng.</p>
+ <div class="product-meta">
+ <div class="price">149.000đ</div>
+ <button class="add-cart" data-name="Socola Dâu Tây" data-price="149000">Thêm</button>
+ </div>
+ </div>
+ </div>
+
+ <div class="product-card">
+ <div class="product-image">
+ <img src="https://images.unsplash.com/photo-1571506165871-ee72a35bc9d4?auto=format&fit=crop&w=900&q=80" alt="Socola matcha">
+ </div>
+ <div class="product-info">
+ <h3>Socola Matcha</h3>
+ <p>Sự hòa quyện tinh tế giữa vị đắng nhẹ cacao và mùi thơm đặc trưng của matcha.</p>
+ <div class="product-meta">
+ <div class="price">159.000đ</div>
+ <button class="add-cart" data-name="Socola Matcha" data-price="159000">Thêm</button>
+ </div>
+ </div>
+ </div>
+
+ <div class="product-card">
+ <div class="product-image">
+ <img src="https://images.unsplash.com/photo-1511381939415-e44015466834?auto=format&fit=crop&w=900&q=80" alt="Socola đen">
+ </div>
+ <div class="product-info">
+ <h3>Socola Đen 75%</h3>
+ <p>Dành cho tín đồ socola nguyên bản với hậu vị sâu và ít ngọt.</p>
+ <div class="product-meta">
+ <div class="price">139.000đ</div>
+ <button class="add-cart" data-name="Socola Đen 75%" data-price="139000">Thêm</button>
+ </div>
+ </div>
+ </div>
+
+ <div class="product-card">
+ <div class="product-image">
+ <img src="https://images.unsplash.com/photo-1481391032119-d89fee407e44?auto=format&fit=crop&w=900&q=80" alt="Socola hộp quà">
+ </div>
+ <div class="product-info">
+ <h3>Hộp Quà Premium</h3>
+ <p>Bộ sưu tập nhiều vị trong một hộp quà tinh tế, sang trọng và cao cấp.</p>
+ <div class="product-meta">
+ <div class="price">299.000đ</div>
+ <button class="add-cart" data-name="Hộp Quà Premium" data-price="299000">Thêm</button>
+ </div>
+ </div>
+ </div>
+
+ <div class="product-card">
+ <div class="product-image">
+ <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=80" alt="Socola caramel">
+ </div>
+ <div class="product-info">
+ <h3>Socola Caramel Muối</h3>
+ <p>Vị ngọt béo của caramel hòa quyện chút mặn nhẹ, vô cùng độc đáo.</p>
+ <div class="product-meta">
+ <div class="price">169.000đ</div>
+ <button class="add-cart" data-name="Socola Caramel Muối" data-price="169000">Thêm</button>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </section>
+
+ <section>
+ <div class="container">
+ <div class="promo">
+ <div>
+ <div class="promo-tag">Ưu đãi đặc biệt</div>
+ <h2>Giảm giá cho đơn hàng đầu tiên</h2>
+ <p>
+ Đăng ký nhận tin để không bỏ lỡ các bộ sưu tập socola theo mùa, chương trình ưu đãi
+ và voucher dành riêng cho khách hàng thân thiết.
+ </p>
+ <button class="btn btn-secondary">Nhận ưu đãi ngay</button>
+ </div>
+ <div class="promo-box">
+ <h3>Mã giảm giá</h3>
+ <div class="big">CHOCO10</div>
+ <p>Giảm 10% cho đơn hàng đầu tiên</p>
+ </div>
+ </div>
+ </div>
+ </section>
+
+ <section id="reviews">
+ <div class="container">
+ <h2 class="section-title">Khách hàng nói gì?</h2>
+ <p class="section-subtitle">
+ Những phản hồi chân thực từ khách hàng đã trải nghiệm socola của ChocoLuxe.
+ </p>
+
+ <div class="testimonials">
+ <div class="testimonial-card">
+ <p>“Socola cực ngon, đóng gói quá đẹp. Mình mua làm quà sinh nhật ai cũng khen.”</p>
+ <div class="testimonial-user">— Minh Anh</div>
+ </div>
+ <div class="testimonial-card">
+ <p>“Vị rất tinh tế, không quá ngọt. Hộp quà sang trọng hơn mong đợi.”</p>
+ <div class="testimonial-user">— Quốc Bảo</div>
+ </div>
+ <div class="testimonial-card">
+ <p>“Giao hàng nhanh, sản phẩm y hình. Mình sẽ đặt tiếp vào dịp lễ tới.”</p>
+ <div class="testimonial-user">— Thanh Vy</div>
+ </div>
+ </div>
+ </div>
+ </section>
+
+ <footer id="contact">
+ <div class="container">
+ <div class="footer-grid">
+ <div>
+ <h4>ChocoLuxe</h4>
+ <p>Thương hiệu socola thủ công cao cấp, mang đến hương vị ngọt ngào và trải nghiệm quà tặng tinh tế.</p>
+ </div>
+ <div>
+ <h4>Điều hướng</h4>
+ <a href="#home">Trang chủ</a>
+ <a href="#about">Giới thiệu</a>
+ <a href="#products">Sản phẩm</a>
+ <a href="#reviews">Đánh giá</a>
+ </div>
+ <div>
+ <h4>Hỗ trợ</h4>
+ <a href="#">Chính sách giao hàng</a>
+ <a href="#">Đổi trả</a>
+ <a href="#">Thanh toán</a>
+ <a href="#">Câu hỏi thường gặp</a>
+ </div>
+ <div>
+ <h4>Liên hệ</h4>
+ <p>Email: hello@chocoluxe.vn</p>
+ <p>Hotline: 0123 456 789</p>
+ <p>Địa chỉ: 123 Đường Ngọt Ngào, Quận Socola, TP.HCM</p>
+ </div>
+ </div>
+ <div class="copyright">
+ © 2026 ChocoLuxe. All rights reserved.
+ </div>
+ </div>
+ </footer>
+
+ <div class="overlay" id="overlay"></div>
+
+ <div class="cart-modal" id="cartModal">
+ <div class="cart-header">
+ <h3>Giỏ hàng</h3>
+ <span class="close-cart" id="closeCart">&times;</span>
+ </div>
+ <div class="cart-items" id="cartItems">
+ <div class="empty-cart">Chưa có sản phẩm nào trong giỏ hàng.</div>
+ </div>
+ <div class="cart-footer">
+ <div class="cart-total">
+ <span>Tổng:</span>
+ <span id="cartTotal">0đ</span>
+ </div>
+ <button class="checkout-btn">Thanh toán</button>
+ </div>
+ </div>
+
+ <script>
+ const cart = [];
+ const cartModal = document.getElementById("cartModal");
+ const overlay = document.getElementById("overlay");
+ const openCartBtn = document.getElementById("openCart");
+ const closeCartBtn = document.getElementById("closeCart");
+ const cartItemsEl = document.getElementById("cartItems");
+ const cartTotalEl = document.getElementById("cartTotal");
+ const cartCountEl = document.getElementById("cartCount");
+ const addCartButtons = document.querySelectorAll(".add-cart");
+
+ function formatPrice(number) {
+ return number.toLocaleString("vi-VN") + "đ";
+ }
+
+ function openCart() {
+ cartModal.classList.add("active");
+ overlay.classList.add("active");
+ }
+
+ function closeCart() {
+ cartModal.classList.remove("active");
+ overlay.classList.remove("active");
+ }
+
+ openCartBtn.addEventListener("click", openCart);
+ closeCartBtn.addEventListener("click", closeCart);
+ overlay.addEventListener("click", closeCart);
+
+ addCartButtons.forEach(button => {
+ button.addEventListener("click", () => {
+ const name = button.getAttribute("data-name");
+ const price = Number(button.getAttribute("data-price"));
+
+ cart.push({ name, price });
+ renderCart();
+ openCart();
+ });
+ });
+
+ function removeFromCart(index) {
+ cart.splice(index, 1);
+ renderCart();
+ }
+
+ function renderCart() {
+ cartCountEl.textContent = cart.length;
+
+ if (cart.length === 0) {
+ cartItemsEl.innerHTML = `<div class="empty-cart">Chưa có sản phẩm nào trong giỏ hàng.</div>`;
+ cartTotalEl.textContent = "0đ";
+ return;
+ }
+
+ cartItemsEl.innerHTML = "";
+ let total = 0;
+
+ cart.forEach((item, index) => {
+ total += item.price;
+
+ const itemEl = document.createElement("div");
+ itemEl.className = "cart-item";
+ itemEl.innerHTML = `
+ <div>
+ <div class="cart-item-name">${item.name}</div>
+ <div class="cart-item-price">${formatPrice(item.price)}</div>
+ </div>
+ <button class="remove-item" onclick="removeFromCart(${index})">Xóa</button>
+ `;
+ cartItemsEl.appendChild(itemEl);
+ });
+
+ cartTotalEl.textContent = formatPrice(total);
+ }
+
+ window.removeFromCart = removeFromCart;
+ </script>
+</body>
+</html>

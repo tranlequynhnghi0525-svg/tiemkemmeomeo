@@ -2,8 +2,9 @@
 <html lang="vi">
 <head>
  <meta charset="UTF-8" />
+ <meta charset="UTF-8" />
  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
- <title>Tiệm Kem Hồng - Game Bán Kem</title>
+ <title>Tiệm Kem Hồng - Nâng Cấp</title>
  <link rel="preconnect" href="https://fonts.googleapis.com">
  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&display=swap" rel="stylesheet">
@@ -14,97 +15,101 @@
 
  <div class="app">
  <header class="header">
+ <div>
  <h1>🍦 Tiệm Kem Hồng</h1>
- <p>Phục vụ khách hàng đúng món để ghi điểm nhé!</p>
+ <p>Phục vụ đúng đơn, nhanh tay để kiếm thật nhiều điểm!</p>
+ </div>
+ <div class="top-stats">
+ <div class="chip">⭐ Điểm: <span id="score">0</span></div>
+ <div class="chip">💰 Tiền: <span id="money">0 ₫</span></div>
+ <div class="chip">🏆 Level: <span id="level">1</span></div>
+ </div>
  </header>
 
- <main class="main-grid">
+ <main class="grid">
  <section class="panel customer-panel">
  <h2>Khách hàng</h2>
  <div class="customer-card">
  <div class="avatar" id="customerAvatar">👧</div>
  <div class="customer-info">
- <div class="customer-name" id="customerName">Lan</div>
- <div class="customer-order" id="customerOrder">Muốn kem dâu + 2 topping + cốc</div>
+ <div class="customer-name" id="customerName">---</div>
+ <div class="customer-order" id="customerOrder">---</div>
+ <div class="customer-meta">
+ <span id="timer">⏱ 30s</span>
+ <span id="satisfaction">❤️ 100%</span>
+ </div>
  </div>
  </div>
 
+ <div class="thought" id="thought">Khách đang chờ món...</div>
+
  <div class="order-box">
- <h3>Yêu cầu của khách</h3>
+ <h3>Đơn cần làm</h3>
  <div id="orderDetails"></div>
  <div class="order-total">
- <span>Giá khách sẽ trả:</span>
+ <span>Tiền đơn:</span>
  <strong id="expectedMoney">0 ₫</strong>
  </div>
  </div>
 
+ <div class="buttons">
  <button id="nextCustomerBtn" class="btn secondary">Khách mới</button>
+ </div>
  </section>
 
  <section class="panel maker-panel">
- <h2>Chọn kem</h2>
+ <h2>Quầy làm kem</h2>
 
  <div class="section">
- <h3>Vị kem</h3>
- <div class="choices" id="flavorChoices">
- <button class="choice-btn active" data-type="flavor" data-value="Dâu" data-price="12000">Dâu</button>
- <button class="choice-btn" data-type="flavor" data-value="Vanilla" data-price="10000">Vanilla</button>
- <button class="choice-btn" data-type="flavor" data-value="Socola" data-price="13000">Socola</button>
- <button class="choice-btn" data-type="flavor" data-value="Matcha" data-price="14000">Matcha</button>
- </div>
+ <h3>Chọn vị kem</h3>
+ <div class="choices" id="flavorChoices"></div>
  </div>
 
  <div class="section">
- <h3>Loại đựng</h3>
- <div class="choices" id="containerChoices">
- <button class="choice-btn active" data-type="container" data-value="Cốc" data-price="3000">Cốc</button>
- <button class="choice-btn" data-type="container" data-value="Ốc quế" data-price="4000">Ốc quế</button>
- </div>
+ <h3>Chọn topping</h3>
+ <div class="choices" id="toppingChoices"></div>
  </div>
 
  <div class="section">
- <h3>Topping</h3>
- <div class="choices toppings" id="toppingChoices">
- <button class="choice-btn" data-type="topping" data-value="Kẹo cốm" data-price="2000">Kẹo cốm</button>
- <button class="choice-btn" data-type="topping" data-value="Trân châu" data-price="3000">Trân châu</button>
- <button class="choice-btn" data-type="topping" data-value="Cherry" data-price="4000">Cherry</button>
- <button class="choice-btn" data-type="topping" data-value="Siro dâu" data-price="2500">Siro dâu</button>
- </div>
+ <h3>Chọn kiểu đựng</h3>
+ <div class="choices" id="containerChoices"></div>
  </div>
 
- <div class="preview-box">
- <h3>Xem trước</h3>
- <div class="icecream-preview" id="icecreamPreview">
- <div class="cone" id="cone"></div>
- <div class="scoop" id="scoop"></div>
- <div class="topping topping-1" id="top1"></div>
- <div class="topping topping-2" id="top2"></div>
- <div class="topping topping-3" id="top3"></div>
- </div>
- <div class="preview-text" id="previewText">Dâu • Cốc • 0 topping</div>
+ <div class="preview-card">
+ <div class="preview" id="preview"></div>
+ <div class="preview-label" id="previewLabel">Chưa chọn gì</div>
  </div>
 
- <div class="actions">
+ <div class="buttons">
  <button id="serveBtn" class="btn primary">Phục vụ</button>
  <button id="resetBtn" class="btn secondary">Làm lại</button>
  </div>
  </section>
 
- <section class="panel score-panel">
- <h2>Điểm số</h2>
- <div class="score-card">
- <div class="score-label">Tiền kiếm được</div>
- <div class="score-value" id="money">0 ₫</div>
+ <section class="panel side-panel">
+ <h2>Bảng điều khiển</h2>
+
+ <div class="stat-card">
+ <span>Đơn đúng</span>
+ <strong id="correctCount">0</strong>
  </div>
- <div class="score-card">
- <div class="score-label">Đơn đúng</div>
- <div class="score-value" id="correctCount">0</div>
+ <div class="stat-card">
+ <span>Đơn sai</span>
+ <strong id="wrongCount">0</strong>
  </div>
- <div class="score-card">
- <div class="score-label">Đơn sai</div>
- <div class="score-value" id="wrongCount">0</div>
+ <div class="stat-card">
+ <span>Chuỗi đúng</span>
+ <strong id="combo">0</strong>
  </div>
- <div class="message" id="message">Hãy phục vụ khách đầu tiên nào!</div>
+
+ <div class="message" id="message">
+ Bắt đầu phục vụ khách nào!
+ </div>
+
+ <div class="receipt-box">
+ <h3>Hóa đơn</h3>
+ <div class="receipt" id="receipt">Chưa có hóa đơn.</div>
+ </div>
  </section>
  </main>
  </div>

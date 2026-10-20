@@ -2,63 +2,518 @@
 <html lang="vi">
 <head>
  <meta charset="UTF-8" />
- <meta charset="UTF-8" />
  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
- <title>Tiệm Kem Hồng - Nâng Cấp</title>
- <link rel="preconnect" href="https://fonts.googleapis.com">
- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
- <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&display=swap" rel="stylesheet">
- <link rel="stylesheet" href="style.css" />
+ <title>Tiệm Kem Hồng - Quán Thật</title>
+ <style>
+ :root{
+ --bg1:#fff1f8;
+ --bg2:#ffe3f1;
+ --pink:#ff72ad;
+ --pink-dark:#e93d87;
+ --pink-soft:#ffd5e6;
+ --text:#5a2943;
+ --card:rgba(255,255,255,.82);
+ --shadow:0 16px 36px rgba(233,61,135,.15);
+ --good:#29b36b;
+ --bad:#ef476f;
+ --warn:#ffb703;
+ }
+
+ *{box-sizing:border-box}
+ body{
+ margin:0;
+ font-family: "Segoe UI", Tahoma, sans-serif;
+ color:var(--text);
+ min-height:100vh;
+ overflow-x:hidden;
+ background:
+ radial-gradient(circle at 20% 10%, rgba(255,255,255,.8), transparent 22%),
+ radial-gradient(circle at 80% 20%, rgba(255,192,221,.35), transparent 22%),
+ linear-gradient(180deg, var(--bg1), var(--bg2));
+ }
+
+ .app{
+ width:min(1400px, 96vw);
+ margin:0 auto;
+ padding:18px 0 26px;
+ }
+
+ .topbar{
+ display:flex;
+ justify-content:space-between;
+ gap:16px;
+ align-items:center;
+ flex-wrap:wrap;
+ background:var(--card);
+ border:1px solid rgba(255,114,173,.15);
+ border-radius:24px;
+ box-shadow:var(--shadow);
+ padding:16px 18px;
+ backdrop-filter: blur(10px);
+ }
+
+ .title h1{
+ margin:0;
+ color:var(--pink-dark);
+ font-size:clamp(26px,4vw,42px);
+ }
+
+ .title p{
+ margin:6px 0 0;
+ opacity:.9;
+ }
+
+ .stats{
+ display:flex;
+ gap:10px;
+ flex-wrap:wrap;
+ }
+
+ .stat{
+ background:#fff;
+ border:1px solid #ffd4e6;
+ border-radius:999px;
+ padding:10px 14px;
+ font-weight:800;
+ box-shadow:0 8px 16px rgba(233,61,135,.08);
+ }
+
+ .layout{
+ margin-top:18px;
+ display:grid;
+ grid-template-columns: 1.15fr 1fr;
+ gap:18px;
+ }
+
+ .panel{
+ background:var(--card);
+ border:1px solid rgba(255,114,173,.15);
+ border-radius:24px;
+ padding:18px;
+ box-shadow:var(--shadow);
+ backdrop-filter: blur(10px);
+ }
+
+ .panel h2{
+ margin:0 0 14px;
+ color:var(--pink-dark);
+ }
+
+ .queue{
+ display:grid;
+ grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+ gap:14px;
+ }
+
+ .customer-card{
+ background:linear-gradient(180deg,#fff,#fff7fb);
+ border:1px solid #ffd5e6;
+ border-radius:22px;
+ padding:12px;
+ min-height:250px;
+ position:relative;
+ transition:.2s ease;
+ }
+
+ .customer-card.active{
+ border:2px solid var(--pink-dark);
+ box-shadow:0 10px 22px rgba(233,61,135,.16);
+ transform:translateY(-2px);
+ }
+
+ .customer-card.entering{
+ animation: enterFromLeft .7s ease-out;
+ }
+
+ @keyframes enterFromLeft{
+ from{ transform:translateX(-60px); opacity:0; }
+ to{ transform:translateX(0); opacity:1; }
+ }
+
+ .customer-top{
+ display:flex;
+ gap:12px;
+ align-items:center;
+ }
+
+ .avatar{
+ width:76px;
+ height:76px;
+ border-radius:22px;
+ position:relative;
+ overflow:hidden;
+ flex:0 0 auto;
+ box-shadow: inset 0 0 0 2px rgba(255,255,255,.5);
+ }
+
+ .face{
+ position:absolute;
+ width:42px;
+ height:46px;
+ background:#ffd8c0;
+ border-radius:45% 45% 42% 42%;
+ left:50%;
+ top:18px;
+ transform:translateX(-50%);
+ z-index:2;
+ }
+
+ .hair{
+ position:absolute;
+ width:56px;
+ height:40px;
+ border-radius:50% 50% 35% 35%;
+ left:50%;
+ top:10px;
+ transform:translateX(-50%);
+ z-index:3;
+ }
+
+ .eye{
+ position:absolute;
+ width:5px;
+ height:5px;
+ border-radius:50%;
+ background:#40211f;
+ top:18px;
+ z-index:4;
+ }
+ .eye.left{ left:12px; }
+ .eye.right{ right:12px; }
+
+ .mouth{
+ position:absolute;
+ width:12px;
+ height:6px;
+ border-bottom:2px solid #ca7082;
+ border-radius:0 0 10px 10px;
+ bottom:10px;
+ left:50%;
+ transform:translateX(-50%);
+ z-index:4;
+ }
+
+ .shirt{
+ position:absolute;
+ width:60px;
+ height:28px;
+ bottom:0;
+ left:50%;
+ transform:translateX(-50%);
+ border-radius:16px 16px 0 0;
+ z-index:1;
+ }
+
+ .customer-name{
+ font-weight:900;
+ font-size:18px;
+ color:#cf2d79;
+ }
+
+ .customer-note{
+ font-size:13px;
+ opacity:.86;
+ margin-top:2px;
+ }
+
+ .order-box{
+ margin-top:12px;
+ background:#fff8fc;
+ border:1px solid #ffd9e7;
+ border-radius:16px;
+ padding:12px;
+ line-height:1.55;
+ font-size:14px;
+ }
+
+ .timer-wrap{
+ margin-top:12px;
+ }
+
+ .timer-label{
+ display:flex;
+ justify-content:space-between;
+ font-weight:800;
+ font-size:13px;
+ margin-bottom:6px;
+ }
+
+ .timer{
+ height:12px;
+ border-radius:999px;
+ overflow:hidden;
+ background:#ffe4ef;
+ border:1px solid #ffd2e4;
+ }
+
+ .timer-fill{
+ height:100%;
+ width:100%;
+ background:linear-gradient(90deg,#57cc99,#ffb703,#ef476f);
+ transition:width .2s linear;
+ }
+
+ .select-btn{
+ width:100%;
+ margin-top:12px;
+ border:none;
+ cursor:pointer;
+ padding:11px 12px;
+ border-radius:14px;
+ font-weight:800;
+ background:#ffe2ef;
+ color:#a22565;
+ transition:.18s;
+ }
+
+ .select-btn:hover{
+ transform:translateY(-1px);
+ background:#ffd0e4;
+ }
+
+ .maker{
+ display:grid;
+ gap:16px;
+ }
+
+ .machine{
+ position:relative;
+ background:linear-gradient(180deg,#fff9fd,#ffeaf4);
+ border:1px solid #ffd8e9;
+ border-radius:24px;
+ min-height:380px;
+ padding:14px;
+ overflow:hidden;
+ }
+
+ .shop-bg{
+ position:absolute;
+ inset:0;
+ background:
+ linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02)),
+ radial-gradient(circle at 50% 0%, rgba(255,255,255,.6), transparent 20%);
+ pointer-events:none;
+ }
+
+ .counter{
+ position:absolute;
+ left:0;
+ right:0;
+ bottom:0;
+ height:92px;
+ background:linear-gradient(180deg,#d78f5c,#b96f39);
+ border-top:4px solid rgba(255,255,255,.25);
+ box-shadow: inset 0 8px 0 rgba(255,255,255,.08);
+ }
+
+ .counter::before{
+ content:"";
+ position:absolute;
+ inset:12px 18px 12px 18px;
+ border-radius:18px;
+ background:linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,0));
+ }
+
+ .preview{
+ width:240px;
+ height:300px;
+ position:absolute;
+ left:50%;
+ bottom:46px;
+ transform:translateX(-50%);
+ filter: drop-shadow(0 16px 24px rgba(233,61,135,.16));
+ }
+
+ .cone{
+ position:absolute;
+ bottom:0;
+ left:50%;
+ transform:translateX(-50%);
+ width:0;
+ height:0;
+ border-left:74px solid transparent;
+ border-right:74px solid transparent;
+ border-top:150px solid #d89b59;
+ display:block;
+ }
+
+ .cup{
+ position:absolute;
+ bottom:0;
+ left:50%;
+ transform:translateX(-50%);
+ width:160px;
+ height:170px;
+ border-radius:18px 18px 28px 28px;
+ background:linear-gradient(180deg,#fff,#ffe6f0);
+ border:4px solid rgba(255,255,255,.85);
+ box-shadow: inset 0 -10px 0 rgba(255,106,167,.08);
+ display:none;
+ }
+
+ .scoop{
+ position:absolute;
+ left:50%;
+ transform:translateX(-50%);
+ width:130px;
+ height:108px;
+ border-radius:50%;
+ border:4px solid rgba(255,255,255,.7);
+ box-shadow: inset -9px -10px 0 rgba(0,0,0,.05);
+ top:58px;
+ }
+
+ .scoop.second{
+ width:118px;
+ height:98px;
+ top:18px;
+ }
+
+ .topping{
+ position:absolute;
+ font-size:22px;
+ z-index:4;
+ }
+
+ .section{
+ background:#fffafc;
+ border:1px solid #ffd8e9;
+ border-radius:20px;
+ padding:14px;
+ }
+
+ .section h3{
+ margin:0 0 10px;
+ color:#cf2d79;
+ font-size:17px;
+ }
+
+ .choices{
+ display:grid;
+ grid-template-columns: repeat(auto-fit, minmax(120px,1fr));
+ gap:10px;
+ }
+
+ .choice{
+ border:none;
+ cursor:pointer;
+ border-radius:16px;
+ padding:10px;
+ min-height:72px;
+ background:#fff3f8;
+ border:2px solid #ffd2e4;
+ font-weight:800;
+ color:var(--text);
+ transition:.18s ease;
+ }
+
+ .choice:hover{
+ transform:translateY(-2px);
+ border-color:var(--pink-dark);
+ }
+
+ .choice.active{
+ background:linear-gradient(180deg,#ffd9ea,#ffc2db);
+ border-color:var(--pink-dark);
+ }
+
+ .choice .emoji{
+ display:block;
+ font-size:26px;
+ margin-bottom:5px;
+ }
+
+ .controls{
+ display:flex;
+ gap:10px;
+ flex-wrap:wrap;
+ }
+
+ .btn{
+ flex:1;
+ border:none;
+ cursor:pointer;
+ padding:13px 16px;
+ border-radius:16px;
+ font-weight:800;
+ transition:.18s;
+ }
+
+ .btn:hover{ transform:translateY(-1px); }
+
+ .primary{
+ background:linear-gradient(180deg,var(--pink),var(--pink-dark));
+ color:#fff;
+ box-shadow:0 10px 18px rgba(233,61,135,.18);
+ }
+
+ .secondary{
+ background:#ffe1ee;
+ color:#a42464;
+ }
+
+ .receipt, .message{
+ background:#fff;
+ border:1px solid #ffd5e6;
+ border-radius:18px;
+ padding:14px;
+ }
+
+ .receipt{
+ white-space:pre-wrap;
+ font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+ min-height:150px;
+ line-height:1.55;
+ }
+
+ .message{
+ font-weight:700;
+ min-height:56px;
+ display:flex;
+ align-items:center;
+ margin-top:12px;
+ }
+
+ @media (max-width: 1050px){
+ .layout{ grid-template-columns:1fr; }
+ .preview{
+ left:50%;
+ }
+ }
+ </style>
 </head>
 <body>
- <div class="bg-hearts"></div>
-
  <div class="app">
- <header class="header">
- <div>
+ <div class="topbar">
+ <div class="title">
  <h1>🍦 Tiệm Kem Hồng</h1>
- <p>Phục vụ đúng đơn, nhanh tay để kiếm thật nhiều điểm!</p>
+ <p>Khách sẽ bước vào quán, đứng chờ và rời đi nếu bạn làm quá chậm.</p>
  </div>
- <div class="top-stats">
- <div class="chip">⭐ Điểm: <span id="score">0</span></div>
- <div class="chip">💰 Tiền: <span id="money">0 ₫</span></div>
- <div class="chip">🏆 Level: <span id="level">1</span></div>
- </div>
- </header>
-
- <main class="grid">
- <section class="panel customer-panel">
- <h2>Khách hàng</h2>
- <div class="customer-card">
- <div class="avatar" id="customerAvatar">👧</div>
- <div class="customer-info">
- <div class="customer-name" id="customerName">---</div>
- <div class="customer-order" id="customerOrder">---</div>
- <div class="customer-meta">
- <span id="timer">⏱ 30s</span>
- <span id="satisfaction">❤️ 100%</span>
- </div>
+ <div class="stats">
+ <div class="stat">💰 Tiền: <span id="money">0</span>₫</div>
+ <div class="stat">⭐ Điểm: <span id="score">0</span></div>
+ <div class="stat">✅ Đúng: <span id="served">0</span></div>
+ <div class="stat">😢 Bỏ đi: <span id="left">0</span></div>
  </div>
  </div>
 
- <div class="thought" id="thought">Khách đang chờ món...</div>
-
- <div class="order-box">
- <h3>Đơn cần làm</h3>
- <div id="orderDetails"></div>
- <div class="order-total">
- <span>Tiền đơn:</span>
- <strong id="expectedMoney">0 ₫</strong>
- </div>
- </div>
-
- <div class="buttons">
- <button id="nextCustomerBtn" class="btn secondary">Khách mới</button>
- </div>
+ <div class="layout">
+ <section class="panel">
+ <h2>Khách đang chờ</h2>
+ <div class="queue" id="queue"></div>
  </section>
 
- <section class="panel maker-panel">
+ <section class="panel maker">
  <h2>Quầy làm kem</h2>
+
+ <div class="machine">
+ <div class="shop-bg"></div>
+ <div class="preview" id="preview">
+ <div class="cone" id="coneShape"></div>
+ <div class="cup" id="cupShape"></div>
+ </div>
+ <div class="counter"></div>
+ </div>
 
  <div class="section">
  <h3>Chọn vị kem</h3>
@@ -75,45 +530,349 @@
  <div class="choices" id="containerChoices"></div>
  </div>
 
- <div class="preview-card">
- <div class="preview" id="preview"></div>
- <div class="preview-label" id="previewLabel">Chưa chọn gì</div>
+ <div class="controls">
+ <button class="btn primary" id="serveBtn">Bán cho khách đang chọn</button>
+ <button class="btn secondary" id="resetBtn">Làm lại</button>
  </div>
 
- <div class="buttons">
- <button id="serveBtn" class="btn primary">Phục vụ</button>
- <button id="resetBtn" class="btn secondary">Làm lại</button>
- </div>
+ <div class="receipt" id="receipt">Hãy chọn một khách trong hàng chờ.</div>
+ <div class="message" id="message">Khách sẽ đi vào quán liên tục. Hãy phục vụ thật nhanh nhé!</div>
  </section>
-
- <section class="panel side-panel">
- <h2>Bảng điều khiển</h2>
-
- <div class="stat-card">
- <span>Đơn đúng</span>
- <strong id="correctCount">0</strong>
  </div>
- <div class="stat-card">
- <span>Đơn sai</span>
- <strong id="wrongCount">0</strong>
- </div>
- <div class="stat-card">
- <span>Chuỗi đúng</span>
- <strong id="combo">0</strong>
  </div>
 
- <div class="message" id="message">
- Bắt đầu phục vụ khách nào!
+ <script>
+ const flavors = [
+ { name: "Dâu", emoji: "🍓", color: "#ff8eb8", price: 12000 },
+ { name: "Vanilla", emoji: "🍦", color: "#fff0bf", price: 10000 },
+ { name: "Socola", emoji: "🍫", color: "#8a5a44", price: 13000 },
+ { name: "Matcha", emoji: "🍵", color: "#a7d7a1", price: 14000 }
+ ];
+
+ const toppings = [
+ { name: "Rắc đường", emoji: "✨", price: 2000 },
+ { name: "Cherry", emoji: "🍒", price: 3000 },
+ { name: "Bánh quy", emoji: "🍪", price: 4000 },
+ { name: "Trái tim", emoji: "💖", price: 2500 }
+ ];
+
+ const containers = [
+ { name: "Ốc quế", emoji: "🍦", price: 3000 },
+ { name: "Cốc", emoji: "🥤", price: 2000 }
+ ];
+
+ const names = ["Linh","An","Vy","Minh","Hà","Ngọc","Nhi","Khang","Mina","Bảo","Tina","Nam","Khôi","Yến","Trang","Thảo","Duy","Quỳnh"];
+ const notes = ["Đang rất đói bụng","Muốn kem thật đẹp","Không thích chờ lâu","Thích đồ ngọt","Đang vội lắm","Muốn topping dễ thương"];
+
+ let queue = [];
+ let selectedCustomerId = null;
+ let customerSeed = 1;
+
+ let selected = {
+ flavor: flavors[0],
+ container: containers[0],
+ toppings: []
+ };
+
+ let money = 0;
+ let score = 0;
+ let served = 0;
+ let left = 0;
+
+ const queueEl = document.getElementById("queue");
+ const preview = document.getElementById("preview");
+ const coneShape = document.getElementById("coneShape");
+ const cupShape = document.getElementById("cupShape");
+ const flavorChoices = document.getElementById("flavorChoices");
+ const toppingChoices = document.getElementById("toppingChoices");
+ const containerChoices = document.getElementById("containerChoices");
+ const receipt = document.getElementById("receipt");
+ const message = document.getElementById("message");
+ const moneyEl = document.getElementById("money");
+ const scoreEl = document.getElementById("score");
+ const servedEl = document.getElementById("served");
+ const leftEl = document.getElementById("left");
+
+ function randomItem(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
+ function shuffle(arr){ return [...arr].sort(() => Math.random() - 0.5); }
+
+ function createOrder(){
+ const flavor = randomItem(flavors);
+ const container = randomItem(containers);
+ const toppingCount = Math.floor(Math.random() * 3);
+ const orderToppings = shuffle(toppings).slice(0, toppingCount);
+ return { flavor, container, toppings: orderToppings };
+ }
+
+ function createCustomer(){
+ const gender = Math.random() > 0.5 ? "girl" : "boy";
+ const wait = 16 + Math.floor(Math.random() * 10);
+ return {
+ id: customerSeed++,
+ name: randomItem(names),
+ note: randomItem(notes),
+ gender,
+ hairColor: randomItem(["#6b3e2e","#3f2a56","#8b5a2b","#2f2f2f","#a34f6b"]),
+ shirtColor: randomItem(["#ff77aa","#6ec5ff","#ffd166","#8bd3a8","#cdb4ff"]),
+ order: createOrder(),
+ wait,
+ maxWait: wait
+ };
+ }
+
+ function fillQueue(){
+ while(queue.length < 5){
+ queue.push(createCustomer());
+ }
+ renderQueue();
+ }
+
+ function orderText(c){
+ return `Vị: ${c.order.flavor.name}
+Đựng: ${c.order.container.name}
+Topping: ${c.order.toppings.length ? c.order.toppings.map(t => t.name).join(", ") : "Không có"}`;
+ }
+
+ function renderQueue(){
+ queueEl.innerHTML = queue.map(c => {
+ const percent = Math.max(0, (c.wait / c.maxWait) * 100);
+ return `
+ <div class="customer-card ${selectedCustomerId === c.id ? "active" : ""} entering">
+ <div class="customer-top">
+ <div class="avatar" style="background:${c.gender === 'girl' ? 'linear-gradient(180deg,#ffe2ef,#ffc4dd)' : 'linear-gradient(180deg,#dff4ff,#c8e9ff)'}">
+ <div class="face">
+ <div class="hair" style="background:${c.hairColor}"></div>
+ <div class="eye left"></div>
+ <div class="eye right"></div>
+ <div class="mouth"></div>
+ </div>
+ <div class="shirt" style="background:${c.shirtColor}"></div>
+ </div>
+ <div class="customer-info">
+ <div class="customer-name">${c.name}</div>
+ <div class="customer-note">${c.note}</div>
+ </div>
  </div>
 
- <div class="receipt-box">
- <h3>Hóa đơn</h3>
- <div class="receipt" id="receipt">Chưa có hóa đơn.</div>
+ <div class="order-box">${orderText(c)}</div>
+
+ <div class="timer-wrap">
+ <div class="timer-label">
+ <span>Thời gian chờ</span>
+ <span>${c.wait}s</span>
  </div>
- </section>
- </main>
+ <div class="timer"><div class="timer-fill" style="width:${percent}%"></div></div>
  </div>
 
- <script src="script.js"></script>
+ <button class="select-btn" data-select="${c.id}">
+ ${selectedCustomerId === c.id ? "Đang chọn khách này" : "Chọn khách này"}
+ </button>
+ </div>
+ `;
+ }).join("");
+
+ if(selectedCustomerId && !queue.some(c => c.id === selectedCustomerId)){
+ selectedCustomerId = null;
+ }
+ }
+
+ function renderChoices(){
+ flavorChoices.innerHTML = flavors.map((f, i) => `
+ <button class="choice ${i===0 ? "active" : ""}" data-type="flavor" data-name="${f.name}">
+ <span class="emoji">${f.emoji}</span>${f.name}
+ </button>
+ `).join("");
+
+ toppingChoices.innerHTML = toppings.map(t => `
+ <button class="choice" data-type="topping" data-name="${t.name}">
+ <span class="emoji">${t.emoji}</span>${t.name}
+ </button>
+ `).join("");
+
+ containerChoices.innerHTML = containers.map((c, i) => `
+ <button class="choice ${i===0 ? "active" : ""}" data-type="container" data-name="${c.name}">
+ <span class="emoji">${c.emoji}</span>${c.name}
+ </button>
+ `).join("");
+ }
+
+ function renderPreview(){
+ coneShape.style.display = selected.container.name === "Ốc quế" ? "block" : "none";
+ cupShape.style.display = selected.container.name === "Cốc" ? "block" : "none";
+
+ preview.querySelectorAll(".scoop, .topping").forEach(el => el.remove());
+
+ const scoop1 = document.createElement("div");
+ scoop1.className = "scoop";
+ scoop1.style.background = selected.flavor.color;
+ preview.appendChild(scoop1);
+
+ const scoop2 = document.createElement("div");
+ scoop2.className = "scoop second";
+ scoop2.style.background = selected.flavor.color;
+ preview.appendChild(scoop2);
+
+ selected.toppings.forEach((t, idx) => {
+ const el = document.createElement("div");
+ el.className = "topping";
+ el.textContent = t.emoji;
+ el.style.left = `${84 + idx * 22}px`;
+ el.style.top = `${selected.container.name === "Cốc" ? 52 : 26}px`;
+ preview.appendChild(el);
+ });
+
+ renderReceipt();
+ }
+
+ function renderReceipt(){
+ const current = queue.find(c => c.id === selectedCustomerId);
+ const total = selected.flavor.price + selected.container.price + selected.toppings.reduce((sum, t) => sum + t.price, 0);
+
+ receipt.textContent =
+`KHÁCH ĐANG CHỌN: ${current ? current.name : "Chưa chọn"}
+
+KEM BẠN ĐANG LÀM
+- Vị: ${selected.flavor.name}
+- Đựng: ${selected.container.name}
+- Topping: ${selected.toppings.length ? selected.toppings.map(t => t.name).join(", ") : "Không có"}
+- Giá: ${total.toLocaleString("vi-VN")}₫
+
+${current ? `YÊU CẦU CỦA KHÁCH
+- Vị: ${current.order.flavor.name}
+- Đựng: ${current.order.container.name}
+- Topping: ${current.order.toppings.length ? current.order.toppings.map(t => t.name).join(", ") : "Không có"}` : "Hãy chọn một khách trong hàng chờ."}`;
+ }
+
+ function syncButtons(){
+ document.querySelectorAll("[data-type='flavor']").forEach(btn => btn.classList.toggle("active", btn.dataset.name === selected.flavor.name));
+ document.querySelectorAll("[data-type='container']").forEach(btn => btn.classList.toggle("active", btn.dataset.name === selected.container.name));
+ document.querySelectorAll("[data-type='topping']").forEach(btn => btn.classList.toggle("active", selected.toppings.some(t => t.name === btn.dataset.name)));
+ }
+
+ function compareOrder(customer){
+ const a = selected.toppings.map(t => t.name).sort();
+ const b = customer.order.toppings.map(t => t.name).sort();
+ return selected.flavor.name === customer.order.flavor.name &&
+ selected.container.name === customer.order.container.name &&
+ a.length === b.length &&
+ a.every((x, i) => x === b[i]);
+ }
+
+ function resetSelection(){
+ selected = { flavor: flavors[0], container: containers[0], toppings: [] };
+ syncButtons();
+ renderPreview();
+ }
+
+ function updateStats(){
+ moneyEl.textContent = money.toLocaleString("vi-VN");
+ scoreEl.textContent = score;
+ servedEl.textContent = served;
+ leftEl.textContent = left;
+ }
+
+ document.addEventListener("click", (e) => {
+ const selectBtn = e.target.closest("[data-select]");
+ if(selectBtn){
+ selectedCustomerId = Number(selectBtn.dataset.select);
+ renderQueue();
+ renderReceipt();
+ message.textContent = "Đã chọn khách. Làm kem thật nhanh nhé!";
+ return;
+ }
+
+ const btn = e.target.closest(".choice");
+ if(!btn) return;
+
+ const type = btn.dataset.type;
+ const name = btn.dataset.name;
+
+ if(type === "flavor"){
+ selected.flavor = flavors.find(f => f.name === name);
+ } else if(type === "container"){
+ selected.container = containers.find(c => c.name === name);
+ } else if(type === "topping"){
+ const exists = selected.toppings.some(t => t.name === name);
+ if(exists){
+ selected.toppings = selected.toppings.filter(t => t.name !== name);
+ } else {
+ if(selected.toppings.length >= 3){
+ message.textContent = "Tối đa 3 topping thôi nhé!";
+ return;
+ }
+ selected.toppings.push(toppings.find(t => t.name === name));
+ }
+ }
+
+ syncButtons();
+ renderPreview();
+ });
+
+ document.getElementById("serveBtn").addEventListener("click", () => {
+ const customer = queue.find(c => c.id === selectedCustomerId);
+ if(!customer){
+ message.textContent = "Bạn chưa chọn khách nào.";
+ return;
+ }
+
+ if(compareOrder(customer)){
+ const total = selected.flavor.price + selected.container.price + selected.toppings.reduce((sum, t) => sum + t.price, 0);
+ money += total;
+ score += 10;
+ served += 1;
+ message.textContent = `Tuyệt vời! Bạn đã phục vụ ${customer.name} thành công.`;
+
+ queue = queue.filter(c => c.id !== customer.id);
+ selectedCustomerId = null;
+ resetSelection();
+ fillQueue();
+ } else {
+ score = Math.max(0, score - 3);
+ message.textContent = `Sai đơn rồi! ${customer.name} chưa hài lòng.`;
+ }
+
+ updateStats();
+ renderQueue();
+ renderReceipt();
+ });
+
+ document.getElementById("resetBtn").addEventListener("click", () => {
+ resetSelection();
+ message.textContent = "Đã làm lại ly kem.";
+ });
+
+ function tick(){
+ queue.forEach(c => c.wait -= 1);
+
+ const leaving = queue.filter(c => c.wait <= 0);
+ if(leaving.length){
+ left += leaving.length;
+ score = Math.max(0, score - leaving.length * 5);
+ if(leaving.some(c => c.id === selectedCustomerId)) selectedCustomerId = null;
+
+ message.textContent = `Khách bỏ đi vì chờ quá lâu: ${leaving.map(c => c.name).join(", ")}.`;
+ queue = queue.filter(c => c.wait > 0);
+ fillQueue();
+ updateStats();
+ }
+
+ renderQueue();
+ renderReceipt();
+ }
+
+ renderChoices();
+ syncButtons();
+ resetSelection();
+ fillQueue();
+ updateStats();
+
+ setInterval(tick, 1000);
+ setInterval(() => {
+ if(queue.length < 6 && Math.random() > 0.35){
+ queue.push(createCustomer());
+ renderQueue();
+ }
+ }, 3000);
+ </script>
 </body>
 </html>

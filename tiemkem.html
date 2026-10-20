@@ -4,790 +4,111 @@
  <meta charset="UTF-8" />
  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
  <title>Tiệm Kem Hồng - Game Bán Kem</title>
- <style>
- :root{
- --bg1:#ffe6f2;
- --bg2:#fff7fb;
- --pink:#ff6fae;
- --pink-dark:#e83f8d;
- --pink-light:#ffd1e6;
- --text:#5c2a46;
- --card:#ffffff;
- --shadow:0 18px 40px rgba(232,63,141,.14);
- --radius:24px;
- --good:#31b56b;
- --bad:#ef476f;
- --warn:#ffb703;
- }
-
- *{ box-sizing:border-box; }
-
- html,body{
- margin:0;
- min-height:100%;
- font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
- color:var(--text);
- background:
- radial-gradient(circle at top left, rgba(255,255,255,.7), transparent 30%),
- radial-gradient(circle at right top, rgba(255,175,210,.35), transparent 25%),
- linear-gradient(180deg, var(--bg1), var(--bg2));
- }
-
- body{
- overflow-x:hidden;
- }
-
- .wrap{
- width:min(1280px, 96vw);
- margin:0 auto;
- padding:20px 0 34px;
- }
-
- .topbar{
- background:rgba(255,255,255,.72);
- backdrop-filter: blur(10px);
- border:1px solid rgba(255,111,174,.18);
- box-shadow:var(--shadow);
- border-radius:var(--radius);
- padding:18px 20px;
- display:flex;
- justify-content:space-between;
- align-items:center;
- gap:16px;
- flex-wrap:wrap;
- }
-
- .brand h1{
- margin:0;
- font-size:clamp(26px,4vw,40px);
- color:var(--pink-dark);
- letter-spacing:.2px;
- }
-
- .brand p{
- margin:6px 0 0;
- opacity:.9;
- }
-
- .stats{
- display:flex;
- gap:10px;
- flex-wrap:wrap;
- }
-
- .chip{
- background:#fff;
- border:1px solid #ffd0e4;
- border-radius:999px;
- padding:10px 14px;
- font-weight:700;
- box-shadow:0 8px 18px rgba(232,63,141,.08);
- }
-
- .grid{
- margin-top:18px;
- display:grid;
- grid-template-columns: 1.05fr .95fr;
- gap:18px;
- }
-
- .panel{
- background:rgba(255,255,255,.8);
- backdrop-filter: blur(10px);
- border:1px solid rgba(255,111,174,.16);
- box-shadow:var(--shadow);
- border-radius:var(--radius);
- padding:18px;
- }
-
- .panel h2{
- margin:0 0 14px;
- color:var(--pink-dark);
- font-size:22px;
- }
-
- .customer-box{
- display:grid;
- grid-template-columns: 160px 1fr;
- gap:14px;
- align-items:center;
- background:linear-gradient(180deg,#fff9fc,#ffeef6);
- border:1px solid #ffd6e8;
- border-radius:22px;
- padding:14px;
- }
-
- .avatar{
- width:160px;
- height:160px;
- border-radius:24px;
- background:
- linear-gradient(180deg,#ffe2ef,#ffc4dd);
- position:relative;
- overflow:hidden;
- display:flex;
- align-items:end;
- justify-content:center;
- box-shadow: inset 0 0 0 2px rgba(255,255,255,.5);
- }
-
- .avatar .hair{
- position:absolute;
- width:110px;
- height:110px;
- background:#7b4f3c;
- border-radius:50% 50% 45% 45%;
- top:16px;
- left:25px;
- z-index:1;
- }
-
- .avatar .face{
- position:absolute;
- width:84px;
- height:92px;
- background:#ffd9c2;
- border-radius:46% 46% 42% 42%;
- bottom:26px;
- z-index:2;
- box-shadow: inset 0 -6px 0 rgba(0,0,0,.04);
- }
-
- .avatar .eye{
- position:absolute;
- width:8px;
- height:8px;
- border-radius:50%;
- background:#44211f;
- top:34px;
- z-index:3;
- }
-
- .avatar .eye.left{ left:35px; }
- .avatar .eye.right{ right:35px; }
-
- .avatar .mouth{
- position:absolute;
- width:18px;
- height:10px;
- border-bottom:3px solid #c96b7d;
- border-radius:0 0 18px 18px;
- bottom:34px;
- z-index:3;
- }
-
- .avatar .shirt{
- position:absolute;
- width:120px;
- height:62px;
- background:linear-gradient(180deg,#ff7fb5,#ff5d9a);
- bottom:-2px;
- border-radius:18px 18px 0 0;
- }
-
- .cust-name{
- font-size:24px;
- font-weight:800;
- color:#d72f83;
- margin-bottom:6px;
- }
-
- .cust-order{
- font-size:15px;
- line-height:1.6;
- background:#fff;
- border:1px solid #ffd7e8;
- border-radius:18px;
- padding:12px;
- }
-
- .order-row{
- display:flex;
- flex-wrap:wrap;
- gap:10px;
- margin-top:12px;
- }
-
- .tag{
- background:#ffe1ef;
- color:#b21f68;
- padding:8px 12px;
- border-radius:999px;
- font-weight:700;
- font-size:14px;
- }
-
- .section{
- margin-top:16px;
- background:linear-gradient(180deg,#fffafc,#fff);
- border:1px solid #ffd8e8;
- border-radius:22px;
- padding:16px;
- }
-
- .section h3{
- margin:0 0 12px;
- color:#cf2d79;
- }
-
- .choices{
- display:grid;
- grid-template-columns: repeat(auto-fit,minmax(130px,1fr));
- gap:10px;
- }
-
- .choice{
- border:none;
- cursor:pointer;
- border-radius:18px;
- padding:12px 10px;
- background:#fff3f8;
- border:2px solid #ffd3e3;
- color:var(--text);
- font-weight:700;
- transition:.18s ease;
- min-height:76px;
- }
-
- .choice:hover{
- transform:translateY(-2px);
- border-color:var(--pink);
- box-shadow:0 10px 18px rgba(232,63,141,.12);
- }
-
- .choice.active{
- background:linear-gradient(180deg,#ffd9ea,#ffc1db);
- border-color:var(--pink-dark);
- }
-
- .choice .emoji{
- display:block;
- font-size:28px;
- margin-bottom:6px;
- }
-
- .game-box{
- background:linear-gradient(180deg,#fff8fc,#ffeef6);
- border:1px solid #ffd8e8;
- border-radius:24px;
- padding:16px;
- position:relative;
- overflow:hidden;
- }
-
- .machine{
- height:360px;
- border-radius:26px;
- background:
- linear-gradient(180deg, rgba(255,255,255,.8), rgba(255,255,255,.5)),
- linear-gradient(180deg,#ffe8f2,#ffd5e6);
- border:1px solid rgba(255,111,174,.18);
- box-shadow:inset 0 0 0 2px rgba(255,255,255,.4);
- display:flex;
- align-items:center;
- justify-content:center;
- position:relative;
- overflow:hidden;
- }
-
- .preview{
- width:220px;
- height:290px;
- position:relative;
- display:flex;
- align-items:flex-end;
- justify-content:center;
- filter: drop-shadow(0 18px 25px rgba(232,63,141,.18));
- }
-
- .cup{
- width:160px;
- height:180px;
- position:absolute;
- bottom:0;
- border-radius:18px 18px 30px 30px;
- background:linear-gradient(180deg,#fff,#ffe9f2);
- border:4px solid rgba(255,255,255,.85);
- box-shadow: inset 0 -10px 0 rgba(255,111,174,.08);
- display:none;
- }
-
- .cone{
- width:0;
- height:0;
- border-left:70px solid transparent;
- border-right:70px solid transparent;
- border-top:140px solid #d8a05f;
- position:absolute;
- bottom:0;
- filter: drop-shadow(0 6px 0 rgba(0,0,0,.06));
- }
-
- .scoop{
- width:128px;
- height:108px;
- border-radius:50%;
- position:absolute;
- left:50%;
- transform:translateX(-50%);
- top:44px;
- border:4px solid rgba(255,255,255,.65);
- box-shadow: inset -10px -12px 0 rgba(0,0,0,.05);
- }
-
- .scoop.second{ top:8px; width:116px; height:98px; }
- .scoop.third{ top:-22px; width:104px; height:88px; }
-
- .topping{
- position:absolute;
- font-size:24px;
- z-index:3;
- animation: float 1.8s ease-in-out infinite;
- }
-
- @keyframes float{
- 0%,100%{ transform:translateY(0); }
- 50%{ transform:translateY(-4px); }
- }
-
- .preview-label{
- margin-top:10px;
- text-align:center;
- font-weight:800;
- color:#b51f67;
- font-size:16px;
- }
-
- .bottom-grid{
- margin-top:16px;
- display:grid;
- grid-template-columns: 1fr 1fr;
- gap:14px;
- }
-
- .box{
- background:#fff;
- border:1px solid #ffd7e7;
- border-radius:20px;
- padding:14px;
- }
-
- .receipt{
- font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
- white-space:pre-wrap;
- line-height:1.55;
- min-height:150px;
- }
-
- .message{
- margin-top:12px;
- padding:12px 14px;
- background:#fff2f8;
- border:1px dashed #ff9cc4;
- border-radius:16px;
- font-weight:700;
- min-height:54px;
- display:flex;
- align-items:center;
- }
-
- .buttons{
- display:flex;
- gap:10px;
- flex-wrap:wrap;
- margin-top:14px;
- }
-
- .btn{
- border:none;
- cursor:pointer;
- border-radius:14px;
- padding:12px 16px;
- font-weight:800;
- transition:.18s ease;
- }
-
- .primary{
- background:linear-gradient(180deg,var(--pink),var(--pink-dark));
- color:#fff;
- box-shadow:0 10px 18px rgba(232,63,141,.18);
- }
-
- .secondary{
- background:#ffe2ef;
- color:#9d2b63;
- }
-
- .btn:hover{
- transform:translateY(-1px);
- }
-
- .hint{
- font-size:13px;
- opacity:.85;
- margin-top:8px;
- }
-
- @media (max-width: 980px){
- .grid, .customer-box, .bottom-grid{
- grid-template-columns:1fr;
- }
- .avatar{
- margin:0 auto;
- }
- }
- </style>
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="style.css" />
 </head>
 <body>
- <div class="wrap">
- <div class="topbar">
- <div class="brand">
+ <div class="bg-hearts"></div>
+
+ <div class="app">
+ <header class="header">
  <h1>🍦 Tiệm Kem Hồng</h1>
- <p>Nhìn đơn hàng của khách và làm đúng yêu cầu để nhận tiền!</p>
- </div>
- <div class="stats">
- <div class="chip">💰 Tiền: <span id="money">0</span>₫</div>
- <div class="chip">✅ Đúng: <span id="score">0</span></div>
- <div class="chip">❌ Sai: <span id="wrong">0</span></div>
- </div>
- </div>
+ <p>Phục vụ khách hàng đúng món để ghi điểm nhé!</p>
+ </header>
 
- <div class="grid">
- <section class="panel">
+ <main class="main-grid">
+ <section class="panel customer-panel">
  <h2>Khách hàng</h2>
-
- <div class="customer-box">
- <div class="avatar" id="avatar">
- <div class="hair"></div>
- <div class="face"></div>
- <div class="eye left"></div>
- <div class="eye right"></div>
- <div class="mouth"></div>
- <div class="shirt"></div>
+ <div class="customer-card">
+ <div class="avatar" id="customerAvatar">👧</div>
+ <div class="customer-info">
+ <div class="customer-name" id="customerName">Lan</div>
+ <div class="customer-order" id="customerOrder">Muốn kem dâu + 2 topping + cốc</div>
+ </div>
  </div>
 
- <div>
- <div class="cust-name" id="customerName">Aly</div>
- <div class="cust-order" id="customerOrder">Đang chờ khách...</div>
- <div class="order-row" id="customerTags"></div>
+ <div class="order-box">
+ <h3>Yêu cầu của khách</h3>
+ <div id="orderDetails"></div>
+ <div class="order-total">
+ <span>Giá khách sẽ trả:</span>
+ <strong id="expectedMoney">0 ₫</strong>
+ </div>
+ </div>
+
+ <button id="nextCustomerBtn" class="btn secondary">Khách mới</button>
+ </section>
+
+ <section class="panel maker-panel">
+ <h2>Chọn kem</h2>
+
+ <div class="section">
+ <h3>Vị kem</h3>
+ <div class="choices" id="flavorChoices">
+ <button class="choice-btn active" data-type="flavor" data-value="Dâu" data-price="12000">Dâu</button>
+ <button class="choice-btn" data-type="flavor" data-value="Vanilla" data-price="10000">Vanilla</button>
+ <button class="choice-btn" data-type="flavor" data-value="Socola" data-price="13000">Socola</button>
+ <button class="choice-btn" data-type="flavor" data-value="Matcha" data-price="14000">Matcha</button>
  </div>
  </div>
 
  <div class="section">
- <h3>Chọn vị kem</h3>
- <div class="choices" id="flavorChoices"></div>
+ <h3>Loại đựng</h3>
+ <div class="choices" id="containerChoices">
+ <button class="choice-btn active" data-type="container" data-value="Cốc" data-price="3000">Cốc</button>
+ <button class="choice-btn" data-type="container" data-value="Ốc quế" data-price="4000">Ốc quế</button>
+ </div>
  </div>
 
  <div class="section">
- <h3>Chọn topping</h3>
- <div class="choices" id="toppingChoices"></div>
+ <h3>Topping</h3>
+ <div class="choices toppings" id="toppingChoices">
+ <button class="choice-btn" data-type="topping" data-value="Kẹo cốm" data-price="2000">Kẹo cốm</button>
+ <button class="choice-btn" data-type="topping" data-value="Trân châu" data-price="3000">Trân châu</button>
+ <button class="choice-btn" data-type="topping" data-value="Cherry" data-price="4000">Cherry</button>
+ <button class="choice-btn" data-type="topping" data-value="Siro dâu" data-price="2500">Siro dâu</button>
+ </div>
  </div>
 
- <div class="section">
- <h3>Chọn kiểu đựng</h3>
- <div class="choices" id="containerChoices"></div>
+ <div class="preview-box">
+ <h3>Xem trước</h3>
+ <div class="icecream-preview" id="icecreamPreview">
+ <div class="cone" id="cone"></div>
+ <div class="scoop" id="scoop"></div>
+ <div class="topping topping-1" id="top1"></div>
+ <div class="topping topping-2" id="top2"></div>
+ <div class="topping topping-3" id="top3"></div>
+ </div>
+ <div class="preview-text" id="previewText">Dâu • Cốc • 0 topping</div>
+ </div>
+
+ <div class="actions">
+ <button id="serveBtn" class="btn primary">Phục vụ</button>
+ <button id="resetBtn" class="btn secondary">Làm lại</button>
  </div>
  </section>
 
- <section class="panel">
- <h2>Quầy làm kem</h2>
-
- <div class="game-box">
- <div class="machine">
- <div class="preview" id="preview">
- <div class="cup" id="cupShape"></div>
- <div class="cone" id="coneShape"></div>
+ <section class="panel score-panel">
+ <h2>Điểm số</h2>
+ <div class="score-card">
+ <div class="score-label">Tiền kiếm được</div>
+ <div class="score-value" id="money">0 ₫</div>
  </div>
+ <div class="score-card">
+ <div class="score-label">Đơn đúng</div>
+ <div class="score-value" id="correctCount">0</div>
  </div>
- <div class="preview-label" id="previewLabel">Kem của bạn sẽ xuất hiện ở đây</div>
-
- <div class="buttons">
- <button class="btn primary" id="sellBtn">Bán kem</button>
- <button class="btn secondary" id="nextBtn">Khách mới</button>
- <button class="btn secondary" id="resetBtn">Làm lại</button>
+ <div class="score-card">
+ <div class="score-label">Đơn sai</div>
+ <div class="score-value" id="wrongCount">0</div>
  </div>
-
- <div class="hint">Mẹo: Làm đúng vị, đúng topping và đúng kiểu đựng giống đơn khách.</div>
- </div>
-
- <div class="bottom-grid">
- <div class="box">
- <h3 style="margin-top:0;color:#cf2d79;">Hóa đơn</h3>
- <div class="receipt" id="receipt">Chưa có hóa đơn.</div>
- </div>
- <div class="box">
- <h3 style="margin-top:0;color:#cf2d79;">Phản hồi</h3>
- <div class="message" id="message">Chọn nguyên liệu rồi bán cho khách nhé!</div>
- </div>
- </div>
+ <div class="message" id="message">Hãy phục vụ khách đầu tiên nào!</div>
  </section>
+ </main>
  </div>
- </div>
 
- <script>
- const flavors = [
- { name: "Dâu", color: "#ff8eb8", price: 12000, emoji: "🍓" },
- { name: "Vanilla", color: "#fff0bf", price: 10000, emoji: "🍦" },
- { name: "Socola", color: "#8a5a44", price: 13000, emoji: "🍫" },
- { name: "Matcha", color: "#a7d7a1", price: 14000, emoji: "🍵" }
- ];
-
- const toppings = [
- { name: "Rắc đường", emoji: "✨", price: 2000 },
- { name: "Cherry", emoji: "🍒", price: 3000 },
- { name: "Bánh quy", emoji: "🍪", price: 4000 },
- { name: "Trái tim", emoji: "💖", price: 2500 }
- ];
-
- const containers = [
- { name: "Ốc quế", emoji: "🍦", price: 3000 },
- { name: "Cốc", emoji: "🥤", price: 2000 }
- ];
-
- const customers = [
- {
- name: "Linh",
- avatar: "girl",
- flavor: "Dâu",
- container: "Ốc quế",
- toppings: ["Rắc đường", "Cherry"]
- },
- {
- name: "Bé Nam",
- avatar: "boy",
- flavor: "Vanilla",
- container: "Cốc",
- toppings: ["Bánh quy"]
- },
- {
- name: "Mina",
- avatar: "girl",
- flavor: "Socola",
- container: "Ốc quế",
- toppings: ["Trái tim"]
- },
- {
- name: "An",
- avatar: "boy",
- flavor: "Matcha",
- container: "Cốc",
- toppings: ["Cherry", "Rắc đường"]
- }
- ];
-
- let currentCustomer = null;
- let selected = {
- flavor: flavors[0],
- container: containers[0],
- toppings: []
- };
-
- let money = 0;
- let score = 0;
- let wrong = 0;
-
- const avatar = document.getElementById("avatar");
- const customerName = document.getElementById("customerName");
- const customerOrder = document.getElementById("customerOrder");
- const customerTags = document.getElementById("customerTags");
- const flavorChoices = document.getElementById("flavorChoices");
- const toppingChoices = document.getElementById("toppingChoices");
- const containerChoices = document.getElementById("containerChoices");
- const cupShape = document.getElementById("cupShape");
- const coneShape = document.getElementById("coneShape");
- const previewLabel = document.getElementById("previewLabel");
- const receipt = document.getElementById("receipt");
- const message = document.getElementById("message");
- const moneyEl = document.getElementById("money");
- const scoreEl = document.getElementById("score");
- const wrongEl = document.getElementById("wrong");
-
- function renderChoices() {
- flavorChoices.innerHTML = flavors.map((f, i) => `
- <button class="choice ${i===0 ? 'active' : ''}" data-type="flavor" data-value="${f.name}">
- <span class="emoji">${f.emoji}</span>
- ${f.name}<br><small>${f.price.toLocaleString("vi-VN")}₫</small>
- </button>
- `).join("");
-
- toppingChoices.innerHTML = toppings.map(t => `
- <button class="choice" data-type="topping" data-value="${t.name}">
- <span class="emoji">${t.emoji}</span>
- ${t.name}<br><small>+${t.price.toLocaleString("vi-VN")}₫</small>
- </button>
- `).join("");
-
- containerChoices.innerHTML = containers.map((c, i) => `
- <button class="choice ${i===0 ? 'active' : ''}" data-type="container" data-value="${c.name}">
- <span class="emoji">${c.emoji}</span>
- ${c.name}<br><small>${c.price.toLocaleString("vi-VN")}₫</small>
- </button>
- `).join("");
- }
-
- function setAvatar(type) {
- avatar.style.background = type === "boy"
- ? "linear-gradient(180deg,#d8f2ff,#bfe5ff)"
- : "linear-gradient(180deg,#ffe2ef,#ffc4dd)";
- }
-
- function newCustomer() {
- currentCustomer = customers[Math.floor(Math.random() * customers.length)];
- customerName.textContent = currentCustomer.name;
- customerOrder.textContent = "Khách muốn bạn làm đúng đơn này:";
- customerTags.innerHTML = `
- <div class="tag">Vị: ${currentCustomer.flavor}</div>
- <div class="tag">Đựng: ${currentCustomer.container}</div>
- <div class="tag">Topping: ${currentCustomer.toppings.join(", ")}</div>
- `;
- setAvatar(currentCustomer.avatar);
- renderReceipt();
- message.textContent = "Hãy làm đúng theo yêu cầu của khách!";
- }
-
- function renderReceipt() {
- const total = getTotal(selected);
- previewLabel.textContent =
- `${selected.flavor.name} • ${selected.container.name} • ${selected.toppings.length} topping`;
-
- receipt.textContent =
-`ĐƠN ĐANG LÀM
-- Vị kem: ${selected.flavor.name}
-- Kiểu đựng: ${selected.container.name}
-- Topping: ${selected.toppings.length ? selected.toppings.map(t => t.name).join(", ") : "Không có"}
-- Giá tạm tính: ${total.toLocaleString("vi-VN")}₫`;
- }
-
- function getTotal(order) {
- let total = order.flavor.price + order.container.price;
- order.toppings.forEach(t => total += t.price);
- return total;
- }
-
- function renderPreview() {
- cupShape.style.display = selected.container.name === "Cốc" ? "block" : "none";
- coneShape.style.display = selected.container.name === "Ốc quế" ? "block" : "none";
-
- const baseColor = selected.flavor.color;
- const existing = document.querySelectorAll(".scoop, .topping");
- existing.forEach(el => el.remove());
-
- const scoop1 = document.createElement("div");
- scoop1.className = "scoop";
- scoop1.style.background = baseColor;
- preview.appendChild(scoop1);
-
- const scoop2 = document.createElement("div");
- scoop2.className = "scoop second";
- scoop2.style.background = baseColor;
- preview.appendChild(scoop2);
-
- const scoop3 = document.createElement("div");
- scoop3.className = "scoop third";
- scoop3.style.background = baseColor;
- preview.appendChild(scoop3);
-
- selected.toppings.forEach((t, idx) => {
- const top = document.createElement("div");
- top.className = "topping";
- top.textContent = t.emoji;
- top.style.left = `${70 + (idx * 22) - 18}px`;
- top.style.top = `${selected.container.name === "Cốc" ? 45 : 22 + idx * 2}px`;
- preview.appendChild(top);
- });
- }
-
- function syncActiveButtons() {
- document.querySelectorAll("[data-type='flavor']").forEach(btn => btn.classList.toggle("active", btn.dataset.value === selected.flavor.name));
- document.querySelectorAll("[data-type='container']").forEach(btn => btn.classList.toggle("active", btn.dataset.value === selected.container.name));
- document.querySelectorAll("[data-type='topping']").forEach(btn => btn.classList.toggle("active", selected.toppings.some(t => t.name === btn.dataset.value)));
- }
-
- function updateStats() {
- moneyEl.textContent = money.toLocaleString("vi-VN");
- scoreEl.textContent = score;
- wrongEl.textContent = wrong;
- }
-
- function compareOrder() {
- const sameFlavor = selected.flavor.name === currentCustomer.flavor;
- const sameContainer = selected.container.name === currentCustomer.container;
- const sameToppings =
- selected.toppings.length === currentCustomer.toppings.length &&
- selected.toppings.every(t => currentCustomer.toppings.includes(t.name));
-
- return sameFlavor && sameContainer && sameToppings;
- }
-
- document.addEventListener("click", (e) => {
- const btn = e.target.closest(".choice");
- if (!btn) return;
-
- const type = btn.dataset.type;
- const value = btn.dataset.value;
-
- if (type === "flavor") {
- selected.flavor = flavors.find(f => f.name === value);
- }
-
- if (type === "container") {
- selected.container = containers.find(c => c.name === value);
- }
-
- if (type === "topping") {
- const topping = toppings.find(t => t.name === value);
- const exists = selected.toppings.some(t => t.name === value);
- if (exists) selected.toppings = selected.toppings.filter(t => t.name !== value);
- else selected.toppings.push(topping);
- }
-
- syncActiveButtons();
- renderPreview();
- renderReceipt();
- });
-
- document.getElementById("sellBtn").addEventListener("click", () => {
- if (compareOrder()) {
- const total = getTotal(selected);
- money += total;
- score += 1;
- receipt.textContent =
-`THÀNH CÔNG! 🎉
-Bạn đã phục vụ đúng đơn hàng.
-
-Tiền nhận được: ${total.toLocaleString("vi-VN")}₫
-Tổng tiền hiện có: ${money.toLocaleString("vi-VN")}₫`;
-
- message.textContent = "Khách rất hài lòng! Bạn bán đúng rồi!";
- newCustomer();
- } else {
- wrong += 1;
- message.textContent = "Sai đơn rồi! Kiểm tra lại vị kem, topping và kiểu đựng.";
- }
- updateStats();
- });
-
- document.getElementById("nextBtn").addEventListener("click", () => {
- newCustomer();
- });
-
- document.getElementById("resetBtn").addEventListener("click", () => {
- selected = {
- flavor: flavors[0],
- container: containers[0],
- toppings: []
- };
- syncActiveButtons();
- renderPreview();
- renderReceipt();
- message.textContent = "Đã làm lại đơn.";
- });
-
- renderChoices();
- syncActiveButtons();
- renderPreview();
- updateStats();
- newCustomer();
- </script>
+ <script src="script.js"></script>
 </body>
 </html>

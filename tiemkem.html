@@ -3,18 +3,19 @@
 <head>
  <meta charset="UTF-8" />
  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
- <title>Tiệm Kem Hồng - Quán Thật</title>
+ <title>Tiệm Kem Hồng - Bản Xịn</title>
  <style>
  :root{
- --bg1:#fff1f8;
- --bg2:#ffe3f1;
- --pink:#ff72ad;
- --pink-dark:#e93d87;
- --pink-soft:#ffd5e6;
- --text:#5a2943;
- --card:rgba(255,255,255,.82);
- --shadow:0 16px 36px rgba(233,61,135,.15);
- --good:#29b36b;
+ --bg1:#fff2f8;
+ --bg2:#ffe1ef;
+ --pink:#ff6ea8;
+ --pink-dark:#e83f8d;
+ --pink-light:#ffd3e6;
+ --text:#5b2943;
+ --card:rgba(255,255,255,.8);
+ --shadow:0 18px 40px rgba(232,63,141,.14);
+ --radius:24px;
+ --good:#2ecc71;
  --bad:#ef476f;
  --warn:#ffb703;
  }
@@ -22,43 +23,43 @@
  *{box-sizing:border-box}
  body{
  margin:0;
- font-family: "Segoe UI", Tahoma, sans-serif;
- color:var(--text);
  min-height:100vh;
- overflow-x:hidden;
+ font-family: "Segoe UI", Tahoma, sans-serif;
  background:
- radial-gradient(circle at 20% 10%, rgba(255,255,255,.8), transparent 22%),
- radial-gradient(circle at 80% 20%, rgba(255,192,221,.35), transparent 22%),
- linear-gradient(180deg, var(--bg1), var(--bg2));
+ radial-gradient(circle at top left, rgba(255,255,255,.7), transparent 28%),
+ radial-gradient(circle at top right, rgba(255,182,211,.35), transparent 20%),
+ linear-gradient(180deg,var(--bg1),var(--bg2));
+ color:var(--text);
+ overflow-x:hidden;
  }
 
- .app{
+ .wrap{
  width:min(1400px, 96vw);
  margin:0 auto;
- padding:18px 0 26px;
+ padding:18px 0 30px;
  }
 
  .topbar{
- display:flex;
- justify-content:space-between;
- gap:16px;
- align-items:center;
- flex-wrap:wrap;
  background:var(--card);
- border:1px solid rgba(255,114,173,.15);
- border-radius:24px;
+ backdrop-filter: blur(12px);
+ border:1px solid rgba(255,111,174,.16);
+ border-radius:var(--radius);
  box-shadow:var(--shadow);
  padding:16px 18px;
- backdrop-filter: blur(10px);
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:16px;
+ flex-wrap:wrap;
  }
 
- .title h1{
+ .brand h1{
  margin:0;
+ font-size:clamp(28px,4vw,44px);
  color:var(--pink-dark);
- font-size:clamp(26px,4vw,42px);
  }
 
- .title p{
+ .brand p{
  margin:6px 0 0;
  opacity:.9;
  }
@@ -69,29 +70,29 @@
  flex-wrap:wrap;
  }
 
- .stat{
+ .chip{
  background:#fff;
- border:1px solid #ffd4e6;
+ border:1px solid #ffd4e8;
  border-radius:999px;
  padding:10px 14px;
- font-weight:800;
- box-shadow:0 8px 16px rgba(233,61,135,.08);
+ font-weight:700;
+ box-shadow:0 8px 18px rgba(232,63,141,.08);
  }
 
- .layout{
+ .grid{
  margin-top:18px;
  display:grid;
- grid-template-columns: 1.15fr 1fr;
+ grid-template-columns: 290px 1.15fr 390px;
  gap:18px;
  }
 
  .panel{
  background:var(--card);
- border:1px solid rgba(255,114,173,.15);
- border-radius:24px;
- padding:18px;
+ backdrop-filter: blur(12px);
+ border:1px solid rgba(255,111,174,.16);
+ border-radius:var(--radius);
  box-shadow:var(--shadow);
- backdrop-filter: blur(10px);
+ padding:16px;
  }
 
  .panel h2{
@@ -99,35 +100,39 @@
  color:var(--pink-dark);
  }
 
+ /* Queue */
  .queue{
- display:grid;
- grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
- gap:14px;
+ display:flex;
+ flex-direction:column;
+ gap:12px;
+ max-height:calc(100vh - 160px);
+ overflow:auto;
+ padding-right:4px;
  }
 
  .customer-card{
- background:linear-gradient(180deg,#fff,#fff7fb);
- border:1px solid #ffd5e6;
- border-radius:22px;
+ background:linear-gradient(180deg,#fff,#fff8fc);
+ border:1px solid #ffd7e8;
+ border-radius:20px;
  padding:12px;
- min-height:250px;
+ min-height:220px;
  position:relative;
- transition:.2s ease;
+ overflow:hidden;
+ cursor:pointer;
+ transform:translateX(-40px);
+ opacity:0;
+ animation:enter .45s ease forwards;
+ transition:.18s ease;
  }
 
- .customer-card.active{
+ .customer-card:hover{transform:translateY(-2px)}
+ .customer-card.selected{
  border:2px solid var(--pink-dark);
- box-shadow:0 10px 22px rgba(233,61,135,.16);
- transform:translateY(-2px);
+ box-shadow:0 12px 24px rgba(232,63,141,.15);
  }
 
- .customer-card.entering{
- animation: enterFromLeft .7s ease-out;
- }
-
- @keyframes enterFromLeft{
- from{ transform:translateX(-60px); opacity:0; }
- to{ transform:translateX(0); opacity:1; }
+ @keyframes enter{
+ to{transform:translateX(0); opacity:1;}
  }
 
  .customer-top{
@@ -137,383 +142,322 @@
  }
 
  .avatar{
- width:76px;
- height:76px;
- border-radius:22px;
- position:relative;
- overflow:hidden;
- flex:0 0 auto;
- box-shadow: inset 0 0 0 2px rgba(255,255,255,.5);
+ width:72px;height:72px;border-radius:22px;position:relative;flex:0 0 auto;overflow:hidden;
+ box-shadow:inset 0 0 0 2px rgba(255,255,255,.5);
  }
 
  .face{
- position:absolute;
- width:42px;
- height:46px;
- background:#ffd8c0;
- border-radius:45% 45% 42% 42%;
- left:50%;
- top:18px;
- transform:translateX(-50%);
- z-index:2;
+ width:40px;height:46px;background:#ffd8bf;border-radius:45% 45% 42% 42%;
+ position:absolute;left:50%;top:18px;transform:translateX(-50%);z-index:2;
  }
 
  .hair{
- position:absolute;
- width:56px;
- height:40px;
- border-radius:50% 50% 35% 35%;
- left:50%;
- top:10px;
- transform:translateX(-50%);
- z-index:3;
+ position:absolute;width:54px;height:38px;border-radius:50% 50% 35% 35%;
+ left:50%;top:10px;transform:translateX(-50%);z-index:3;
  }
 
- .eye{
- position:absolute;
- width:5px;
- height:5px;
- border-radius:50%;
- background:#40211f;
- top:18px;
- z-index:4;
- }
- .eye.left{ left:12px; }
- .eye.right{ right:12px; }
+ .eye{position:absolute;width:5px;height:5px;background:#40211f;border-radius:50%;top:18px;z-index:4}
+ .eye.left{left:12px}.eye.right{right:12px}
 
  .mouth{
- position:absolute;
- width:12px;
- height:6px;
- border-bottom:2px solid #ca7082;
- border-radius:0 0 10px 10px;
- bottom:10px;
- left:50%;
- transform:translateX(-50%);
- z-index:4;
+ position:absolute;width:12px;height:6px;border-bottom:2px solid #ca7082;border-radius:0 0 10px 10px;
+ bottom:10px;left:50%;transform:translateX(-50%);z-index:4;
  }
 
  .shirt{
- position:absolute;
- width:60px;
- height:28px;
- bottom:0;
- left:50%;
- transform:translateX(-50%);
- border-radius:16px 16px 0 0;
- z-index:1;
+ position:absolute;width:58px;height:26px;bottom:0;left:50%;transform:translateX(-50%);border-radius:16px 16px 0 0;z-index:1;
  }
 
- .customer-name{
- font-weight:900;
- font-size:18px;
- color:#cf2d79;
- }
-
- .customer-note{
- font-size:13px;
- opacity:.86;
- margin-top:2px;
- }
+ .customer-name{font-weight:800;font-size:18px;color:#cf2d79}
+ .customer-note{font-size:13px;opacity:.85;margin-top:2px}
 
  .order-box{
- margin-top:12px;
+ margin-top:10px;
  background:#fff8fc;
- border:1px solid #ffd9e7;
+ border:1px solid #ffd7e8;
  border-radius:16px;
- padding:12px;
- line-height:1.55;
- font-size:14px;
- }
-
- .timer-wrap{
- margin-top:12px;
- }
-
- .timer-label{
- display:flex;
- justify-content:space-between;
- font-weight:800;
+ padding:10px;
  font-size:13px;
- margin-bottom:6px;
+ line-height:1.55;
  }
 
+ .timer-wrap{margin-top:10px}
+ .timer-label{display:flex;justify-content:space-between;font-size:12px;font-weight:700;margin-bottom:6px}
  .timer{
- height:12px;
- border-radius:999px;
- overflow:hidden;
- background:#ffe4ef;
- border:1px solid #ffd2e4;
+ height:11px;background:#ffe4ef;border-radius:999px;overflow:hidden;border:1px solid #ffd0e4;
  }
-
  .timer-fill{
  height:100%;
- width:100%;
  background:linear-gradient(90deg,#57cc99,#ffb703,#ef476f);
  transition:width .2s linear;
  }
 
  .select-btn{
- width:100%;
- margin-top:12px;
- border:none;
- cursor:pointer;
- padding:11px 12px;
- border-radius:14px;
- font-weight:800;
- background:#ffe2ef;
- color:#a22565;
- transition:.18s;
+ width:100%;margin-top:10px;border:none;cursor:pointer;padding:10px 12px;border-radius:14px;
+ font-weight:800;background:#ffe2ef;color:#a22565;transition:.2s;
  }
+ .select-btn:hover{transform:translateY(-1px);background:#ffd0e4}
 
- .select-btn:hover{
- transform:translateY(-1px);
- background:#ffd0e4;
- }
-
- .maker{
- display:grid;
- gap:16px;
- }
-
- .machine{
+ /* Scene */
+ .scene{
+ min-height:700px;
  position:relative;
- background:linear-gradient(180deg,#fff9fd,#ffeaf4);
- border:1px solid #ffd8e9;
- border-radius:24px;
- min-height:380px;
- padding:14px;
  overflow:hidden;
+ background:linear-gradient(180deg,#fffafc,#ffeef6);
+ border:1px solid #ffd6e8;
+ border-radius:24px;
  }
 
- .shop-bg{
+ .shop{
  position:absolute;
  inset:0;
  background:
- linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02)),
- radial-gradient(circle at 50% 0%, rgba(255,255,255,.6), transparent 20%);
+ linear-gradient(180deg, rgba(255,255,255,.35), rgba(255,255,255,0)),
+ linear-gradient(180deg,#fff6fb 0 20%, #ffe9f3 20% 100%);
+ }
+
+ .door{
+ position:absolute;
+ left:50%;
+ top:16px;
+ transform:translateX(-50%);
+ width:190px;
+ height:250px;
+ border-radius:26px 26px 16px 16px;
+ background:linear-gradient(180deg,#ffd7ea,#ffb7d6);
+ border:4px solid rgba(255,255,255,.55);
+ box-shadow:0 14px 24px rgba(232,63,141,.12);
+ }
+
+ .door::before{
+ content:"";
+ position:absolute;
+ inset:12px;
+ border-radius:18px;
+ background:
+ radial-gradient(circle at 50% 24%, rgba(255,255,255,.95), rgba(255,255,255,.35) 38%, transparent 39%),
+ linear-gradient(180deg,#fff9fd,#ffe8f2);
+ border:2px solid rgba(255,111,174,.15);
+ }
+
+ .door-sign{
+ position:absolute;
+ top:22px;left:50%;transform:translateX(-50%);
+ z-index:2;
+ background:#fff;
+ border:1px solid #ffd2e4;
+ border-radius:999px;
+ padding:8px 12px;
+ font-weight:900;
+ color:#d22d7d;
+ }
+
+ .customer-walk{
+ position:absolute;
+ top:162px;
+ left:-120px;
+ width:100px;
+ height:140px;
+ transition:left 1.5s cubic-bezier(.2,.8,.2,1);
  pointer-events:none;
  }
 
- .counter{
- position:absolute;
- left:0;
- right:0;
- bottom:0;
- height:92px;
- background:linear-gradient(180deg,#d78f5c,#b96f39);
- border-top:4px solid rgba(255,255,255,.25);
- box-shadow: inset 0 8px 0 rgba(255,255,255,.08);
+ .customer-walk.in{
+ left:50%;
+ transform:translateX(-50%);
  }
 
- .counter::before{
- content:"";
+ .customer-walk.out{
+ left:calc(100% + 120px);
+ transition:left 1.1s ease-in;
+ }
+
+ .walker{
+ position:absolute; inset:0;
+ animation:walkBob .5s ease-in-out infinite;
+ }
+
+ @keyframes walkBob{
+ 0%,100%{ transform:translateY(0) }
+ 50%{ transform:translateY(4px) }
+ }
+
+ .walker .face{top:18px;width:38px;height:44px}
+ .walker .hair{width:50px;height:34px;top:8px}
+ .walker .shirt{width:56px;height:24px}
+ .walker .eye{top:17px}
+ .walker .mouth{bottom:9px}
+
+ .bubble{
  position:absolute;
- inset:12px 18px 12px 18px;
- border-radius:18px;
- background:linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,0));
+ top:48px;
+ left:50%;
+ transform:translateX(-50%);
+ background:#fff;
+ border:1px solid #ffd5e6;
+ border-radius:16px;
+ padding:8px 10px;
+ width:max-content;
+ max-width:170px;
+ text-align:center;
+ font-size:12px;
+ box-shadow:0 8px 16px rgba(0,0,0,.05);
+ opacity:0;
+ transition:.25s;
+ }
+ .customer-walk.in .bubble{opacity:1}
+
+ .walk-shadow{
+ position:absolute;
+ bottom:0;left:50%;transform:translateX(-50%);
+ width:62px;height:12px;border-radius:50%;
+ background:rgba(0,0,0,.08);filter:blur(2px);
+ }
+
+ .serve-zone{
+ position:absolute;
+ left:50%;
+ bottom:166px;
+ transform:translateX(-50%);
+ width:240px;
+ height:220px;
+ display:flex;
+ align-items:flex-end;
+ justify-content:center;
  }
 
  .preview{
- width:240px;
- height:300px;
- position:absolute;
- left:50%;
- bottom:46px;
- transform:translateX(-50%);
- filter: drop-shadow(0 16px 24px rgba(233,61,135,.16));
+ width:220px;height:280px;position:relative;display:flex;align-items:flex-end;justify-content:center;
+ filter: drop-shadow(0 14px 20px rgba(233,61,135,.14));
  }
 
  .cone{
- position:absolute;
- bottom:0;
- left:50%;
- transform:translateX(-50%);
- width:0;
- height:0;
- border-left:74px solid transparent;
- border-right:74px solid transparent;
- border-top:150px solid #d89b59;
+ position:absolute;bottom:0;width:0;height:0;border-left:70px solid transparent;border-right:70px solid transparent;border-top:140px solid #d89b59;
  display:block;
  }
 
  .cup{
- position:absolute;
- bottom:0;
- left:50%;
- transform:translateX(-50%);
- width:160px;
- height:170px;
- border-radius:18px 18px 28px 28px;
- background:linear-gradient(180deg,#fff,#ffe6f0);
- border:4px solid rgba(255,255,255,.85);
- box-shadow: inset 0 -10px 0 rgba(255,106,167,.08);
- display:none;
+ position:absolute;bottom:0;width:150px;height:160px;border-radius:18px 18px 26px 26px;
+ background:linear-gradient(180deg,#fff,#ffe6f0);border:4px solid rgba(255,255,255,.85);
+ box-shadow: inset 0 -10px 0 rgba(255,106,167,.08);display:none;
  }
 
  .scoop{
- position:absolute;
- left:50%;
- transform:translateX(-50%);
- width:130px;
- height:108px;
- border-radius:50%;
- border:4px solid rgba(255,255,255,.7);
- box-shadow: inset -9px -10px 0 rgba(0,0,0,.05);
- top:58px;
+ position:absolute;left:50%;transform:translateX(-50%);width:126px;height:106px;border-radius:50%;
+ border:4px solid rgba(255,255,255,.7);box-shadow: inset -9px -10px 0 rgba(0,0,0,.05);top:48px;
  }
 
- .scoop.second{
- width:118px;
- height:98px;
- top:18px;
- }
+ .scoop.second{width:114px;height:96px;top:12px}
+ .topping{position:absolute;font-size:22px;z-index:4}
 
- .topping{
- position:absolute;
- font-size:22px;
- z-index:4;
- }
-
+ /* Right */
  .section{
- background:#fffafc;
- border:1px solid #ffd8e9;
- border-radius:20px;
- padding:14px;
+ background:#fffafc;border:1px solid #ffd7e8;border-radius:20px;padding:14px;margin-bottom:14px;
  }
 
- .section h3{
- margin:0 0 10px;
- color:#cf2d79;
- font-size:17px;
- }
+ .section h3{margin:0 0 10px;color:#cf2d79;font-size:17px}
 
  .choices{
  display:grid;
- grid-template-columns: repeat(auto-fit, minmax(120px,1fr));
+ grid-template-columns:repeat(auto-fit, minmax(112px,1fr));
  gap:10px;
  }
 
  .choice{
- border:none;
- cursor:pointer;
- border-radius:16px;
- padding:10px;
- min-height:72px;
- background:#fff3f8;
- border:2px solid #ffd2e4;
- font-weight:800;
- color:var(--text);
- transition:.18s ease;
+ border:none;cursor:pointer;border-radius:16px;padding:10px;min-height:70px;background:#fff3f8;border:2px solid #ffd2e4;
+ font-weight:800;color:var(--text);transition:.18s ease;
  }
 
- .choice:hover{
- transform:translateY(-2px);
- border-color:var(--pink-dark);
- }
+ .choice:hover{transform:translateY(-2px);border-color:var(--pink)}
+ .choice.active{background:linear-gradient(180deg,#ffd9ea,#ffc2db);border-color:var(--pink-dark)}
 
- .choice.active{
- background:linear-gradient(180deg,#ffd9ea,#ffc2db);
- border-color:var(--pink-dark);
- }
+ .choice .emoji{display:block;font-size:26px;margin-bottom:5px}
 
- .choice .emoji{
- display:block;
- font-size:26px;
- margin-bottom:5px;
- }
-
- .controls{
- display:flex;
- gap:10px;
- flex-wrap:wrap;
- }
-
+ .controls{display:flex;gap:10px;flex-wrap:wrap}
  .btn{
- flex:1;
- border:none;
- cursor:pointer;
- padding:13px 16px;
- border-radius:16px;
- font-weight:800;
- transition:.18s;
+ flex:1;border:none;cursor:pointer;padding:13px 16px;border-radius:16px;font-weight:800;transition:.18s;
  }
+ .btn:hover{transform:translateY(-1px)}
+ .primary{background:linear-gradient(180deg,var(--pink),var(--pink-dark));color:#fff;box-shadow:0 10px 18px rgba(233,61,135,.18)}
+ .secondary{background:#ffe1ee;color:#a42464}
 
- .btn:hover{ transform:translateY(-1px); }
-
- .primary{
- background:linear-gradient(180deg,var(--pink),var(--pink-dark));
- color:#fff;
- box-shadow:0 10px 18px rgba(233,61,135,.18);
- }
-
- .secondary{
- background:#ffe1ee;
- color:#a42464;
- }
-
- .receipt, .message{
- background:#fff;
- border:1px solid #ffd5e6;
- border-radius:18px;
- padding:14px;
+ .receipt,.message{
+ background:#fff;border:1px solid #ffd5e6;border-radius:18px;padding:14px;
  }
 
  .receipt{
  white-space:pre-wrap;
- font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+ font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
  min-height:150px;
  line-height:1.55;
  }
 
  .message{
+ margin-top:12px;
  font-weight:700;
  min-height:56px;
  display:flex;
  align-items:center;
- margin-top:12px;
  }
 
- @media (max-width: 1050px){
- .layout{ grid-template-columns:1fr; }
- .preview{
- left:50%;
- }
+ @media (max-width: 1180px){
+ .grid{grid-template-columns:1fr}
+ .queue{max-height:none}
+ .scene{min-height:640px}
  }
  </style>
 </head>
 <body>
- <div class="app">
+ <div class="wrap">
  <div class="topbar">
- <div class="title">
+ <div class="brand">
  <h1>🍦 Tiệm Kem Hồng</h1>
- <p>Khách sẽ bước vào quán, đứng chờ và rời đi nếu bạn làm quá chậm.</p>
+ <p>Khách sẽ bước vào, chờ đúng thời gian và rời đi nếu bạn làm chậm.</p>
  </div>
  <div class="stats">
- <div class="stat">💰 Tiền: <span id="money">0</span>₫</div>
- <div class="stat">⭐ Điểm: <span id="score">0</span></div>
- <div class="stat">✅ Đúng: <span id="served">0</span></div>
- <div class="stat">😢 Bỏ đi: <span id="left">0</span></div>
+ <div class="chip">💰 Tiền: <span id="money">0</span>₫</div>
+ <div class="chip">⭐ Điểm: <span id="score">0</span></div>
+ <div class="chip">✅ Đúng: <span id="served">0</span></div>
+ <div class="chip">😢 Bỏ đi: <span id="left">0</span></div>
  </div>
  </div>
 
- <div class="layout">
+ <div class="grid">
  <section class="panel">
- <h2>Khách đang chờ</h2>
+ <h2>Hàng chờ</h2>
  <div class="queue" id="queue"></div>
  </section>
 
- <section class="panel maker">
- <h2>Quầy làm kem</h2>
+ <section class="panel scene">
+ <div class="shop"></div>
 
- <div class="machine">
- <div class="shop-bg"></div>
+ <div class="door">
+ <div class="door-sign">QUÁN KEM</div>
+ </div>
+
+ <div class="customer-walk" id="customerWalk">
+ <div class="walker" id="walkingAvatar">
+ <div class="face"></div>
+ <div class="hair"></div>
+ <div class="eye left"></div>
+ <div class="eye right"></div>
+ <div class="mouth"></div>
+ <div class="shirt"></div>
+ </div>
+ <div class="bubble" id="bubble">Xin chào!</div>
+ <div class="walk-shadow"></div>
+ </div>
+
+ <div class="serve-zone">
  <div class="preview" id="preview">
  <div class="cone" id="coneShape"></div>
  <div class="cup" id="cupShape"></div>
  </div>
- <div class="counter"></div>
  </div>
+ </section>
+
+ <section class="panel">
+ <h2>Quầy làm kem</h2>
 
  <div class="section">
  <h3>Chọn vị kem</h3>
@@ -535,8 +479,8 @@
  <button class="btn secondary" id="resetBtn">Làm lại</button>
  </div>
 
- <div class="receipt" id="receipt">Hãy chọn một khách trong hàng chờ.</div>
- <div class="message" id="message">Khách sẽ đi vào quán liên tục. Hãy phục vụ thật nhanh nhé!</div>
+ <div class="receipt" id="receipt">Chọn một khách trong hàng chờ.</div>
+ <div class="message" id="message">Khách đang đi vào quán, hãy phục vụ nhanh nhé!</div>
  </section>
  </div>
  </div>
@@ -561,25 +505,18 @@
  { name: "Cốc", emoji: "🥤", price: 2000 }
  ];
 
- const names = ["Linh","An","Vy","Minh","Hà","Ngọc","Nhi","Khang","Mina","Bảo","Tina","Nam","Khôi","Yến","Trang","Thảo","Duy","Quỳnh"];
- const notes = ["Đang rất đói bụng","Muốn kem thật đẹp","Không thích chờ lâu","Thích đồ ngọt","Đang vội lắm","Muốn topping dễ thương"];
+ const firstNames = ["Linh","An","Vy","Minh","Hà","Ngọc","Nhi","Khang","Mina","Bảo","Tina","Nam","Khôi","Yến","Trang","Lộc","Quỳnh"];
+ const notes = ["Đang rất đói", "Muốn kem thật đẹp", "Không thích chờ lâu", "Thích đồ ngọt", "Đang vội", "Muốn topping dễ thương", "Hôm nay rất vui", "Đói lắm rồi"];
 
  let queue = [];
  let selectedCustomerId = null;
- let customerSeed = 1;
-
- let selected = {
- flavor: flavors[0],
- container: containers[0],
- toppings: []
- };
-
- let money = 0;
- let score = 0;
- let served = 0;
- let left = 0;
+ let selected = { flavor: flavors[0], container: containers[0], toppings: [] };
+ let money = 0, score = 0, served = 0, left = 0, customerIdSeed = 1;
 
  const queueEl = document.getElementById("queue");
+ const customerWalk = document.getElementById("customerWalk");
+ const walkingAvatar = document.getElementById("walkingAvatar");
+ const bubble = document.getElementById("bubble");
  const preview = document.getElementById("preview");
  const coneShape = document.getElementById("coneShape");
  const cupShape = document.getElementById("cupShape");
@@ -596,48 +533,42 @@
  function randomItem(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
  function shuffle(arr){ return [...arr].sort(() => Math.random() - 0.5); }
 
- function createOrder(){
+ function createRandomOrder(){
  const flavor = randomItem(flavors);
  const container = randomItem(containers);
  const toppingCount = Math.floor(Math.random() * 3);
- const orderToppings = shuffle(toppings).slice(0, toppingCount);
- return { flavor, container, toppings: orderToppings };
+ return { flavor, container, toppings: shuffle(toppings).slice(0, toppingCount) };
  }
 
  function createCustomer(){
- const gender = Math.random() > 0.5 ? "girl" : "boy";
- const wait = 16 + Math.floor(Math.random() * 10);
  return {
- id: customerSeed++,
- name: randomItem(names),
+ id: customerIdSeed++,
+ name: randomItem(firstNames),
  note: randomItem(notes),
- gender,
+ gender: Math.random() > 0.5 ? "girl" : "boy",
  hairColor: randomItem(["#6b3e2e","#3f2a56","#8b5a2b","#2f2f2f","#a34f6b"]),
  shirtColor: randomItem(["#ff77aa","#6ec5ff","#ffd166","#8bd3a8","#cdb4ff"]),
- order: createOrder(),
- wait,
- maxWait: wait
+ order: createRandomOrder(),
+ maxWait: 18 + Math.floor(Math.random() * 10),
+ wait: 18 + Math.floor(Math.random() * 10)
  };
  }
 
- function fillQueue(){
- while(queue.length < 5){
- queue.push(createCustomer());
- }
+ function ensureQueue(){
+ while(queue.length < 4) queue.push(createCustomer());
  renderQueue();
+ if(selectedCustomerId == null && queue.length) selectedCustomerId = queue[0].id;
  }
 
- function orderText(c){
- return `Vị: ${c.order.flavor.name}
-Đựng: ${c.order.container.name}
-Topping: ${c.order.toppings.length ? c.order.toppings.map(t => t.name).join(", ") : "Không có"}`;
+ function customerOrderText(c){
+ return `Vị: ${c.order.flavor.name}\nĐựng: ${c.order.container.name}\nTopping: ${c.order.toppings.length ? c.order.toppings.map(t => t.name).join(", ") : "Không có"}`;
  }
 
  function renderQueue(){
  queueEl.innerHTML = queue.map(c => {
  const percent = Math.max(0, (c.wait / c.maxWait) * 100);
  return `
- <div class="customer-card ${selectedCustomerId === c.id ? "active" : ""} entering">
+ <div class="customer-card ${selectedCustomerId === c.id ? "selected" : ""}" data-customer="${c.id}">
  <div class="customer-top">
  <div class="avatar" style="background:${c.gender === 'girl' ? 'linear-gradient(180deg,#ffe2ef,#ffc4dd)' : 'linear-gradient(180deg,#dff4ff,#c8e9ff)'}">
  <div class="face">
@@ -653,27 +584,15 @@ Topping: ${c.order.toppings.length ? c.order.toppings.map(t => t.name).join(", "
  <div class="customer-note">${c.note}</div>
  </div>
  </div>
-
- <div class="order-box">${orderText(c)}</div>
-
+ <div class="order-box">${customerOrderText(c)}</div>
  <div class="timer-wrap">
- <div class="timer-label">
- <span>Thời gian chờ</span>
- <span>${c.wait}s</span>
- </div>
+ <div class="timer-label"><span>Thời gian chờ</span><span>${c.wait}s</span></div>
  <div class="timer"><div class="timer-fill" style="width:${percent}%"></div></div>
  </div>
-
- <button class="select-btn" data-select="${c.id}">
- ${selectedCustomerId === c.id ? "Đang chọn khách này" : "Chọn khách này"}
- </button>
+ <button class="select-btn">${selectedCustomerId === c.id ? "Đang chọn khách này" : "Chọn khách này"}</button>
  </div>
  `;
  }).join("");
-
- if(selectedCustomerId && !queue.some(c => c.id === selectedCustomerId)){
- selectedCustomerId = null;
- }
  }
 
  function renderChoices(){
@@ -682,13 +601,11 @@ Topping: ${c.order.toppings.length ? c.order.toppings.map(t => t.name).join(", "
  <span class="emoji">${f.emoji}</span>${f.name}
  </button>
  `).join("");
-
  toppingChoices.innerHTML = toppings.map(t => `
  <button class="choice" data-type="topping" data-name="${t.name}">
  <span class="emoji">${t.emoji}</span>${t.name}
  </button>
  `).join("");
-
  containerChoices.innerHTML = containers.map((c, i) => `
  <button class="choice ${i===0 ? "active" : ""}" data-type="container" data-name="${c.name}">
  <span class="emoji">${c.emoji}</span>${c.name}
@@ -699,7 +616,6 @@ Topping: ${c.order.toppings.length ? c.order.toppings.map(t => t.name).join(", "
  function renderPreview(){
  coneShape.style.display = selected.container.name === "Ốc quế" ? "block" : "none";
  cupShape.style.display = selected.container.name === "Cốc" ? "block" : "none";
-
  preview.querySelectorAll(".scoop, .topping").forEach(el => el.remove());
 
  const scoop1 = document.createElement("div");
@@ -716,8 +632,8 @@ Topping: ${c.order.toppings.length ? c.order.toppings.map(t => t.name).join(", "
  const el = document.createElement("div");
  el.className = "topping";
  el.textContent = t.emoji;
- el.style.left = `${84 + idx * 22}px`;
- el.style.top = `${selected.container.name === "Cốc" ? 52 : 26}px`;
+ el.style.left = `${82 + idx * 24}px`;
+ el.style.top = `${selected.container.name === "Cốc" ? 48 : 28}px`;
  preview.appendChild(el);
  });
 
@@ -727,7 +643,6 @@ Topping: ${c.order.toppings.length ? c.order.toppings.map(t => t.name).join(", "
  function renderReceipt(){
  const current = queue.find(c => c.id === selectedCustomerId);
  const total = selected.flavor.price + selected.container.price + selected.toppings.reduce((sum, t) => sum + t.price, 0);
-
  receipt.textContent =
 `KHÁCH ĐANG CHỌN: ${current ? current.name : "Chưa chọn"}
 
@@ -737,7 +652,7 @@ KEM BẠN ĐANG LÀM
 - Topping: ${selected.toppings.length ? selected.toppings.map(t => t.name).join(", ") : "Không có"}
 - Giá: ${total.toLocaleString("vi-VN")}₫
 
-${current ? `YÊU CẦU CỦA KHÁCH
+${current ? `YÊU CẦU KHÁCH
 - Vị: ${current.order.flavor.name}
 - Đựng: ${current.order.container.name}
 - Topping: ${current.order.toppings.length ? current.order.toppings.map(t => t.name).join(", ") : "Không có"}` : "Hãy chọn một khách trong hàng chờ."}`;
@@ -750,12 +665,11 @@ ${current ? `YÊU CẦU CỦA KHÁCH
  }
 
  function compareOrder(customer){
- const a = selected.toppings.map(t => t.name).sort();
- const b = customer.order.toppings.map(t => t.name).sort();
- return selected.flavor.name === customer.order.flavor.name &&
- selected.container.name === customer.order.container.name &&
- a.length === b.length &&
- a.every((x, i) => x === b[i]);
+ const sameFlavor = selected.flavor.name === customer.order.flavor.name;
+ const sameContainer = selected.container.name === customer.order.container.name;
+ const a = [...selected.toppings.map(t => t.name)].sort();
+ const b = [...customer.order.toppings.map(t => t.name)].sort();
+ return sameFlavor && sameContainer && a.length === b.length && a.every((v,i) => v === b[i]);
  }
 
  function resetSelection(){
@@ -771,13 +685,31 @@ ${current ? `YÊU CẦU CỦA KHÁCH
  leftEl.textContent = left;
  }
 
+ function animateCustomer(customer, entering){
+ walkingAvatar.querySelector(".hair").style.background = customer.hairColor;
+ walkingAvatar.querySelector(".shirt").style.background = customer.shirtColor;
+ bubble.textContent = entering ? `Xin chào, ${customer.name}!` : `Tạm biệt!`;
+ customerWalk.classList.remove("in","out");
+ void customerWalk.offsetWidth;
+ if(entering) customerWalk.classList.add("in");
+ else customerWalk.classList.add("out");
+ }
+
+ function addCustomerToQueue(){
+ const c = createCustomer();
+ queue.unshift(c);
+ renderQueue();
+ animateCustomer(c, true);
+ setTimeout(() => customerWalk.classList.remove("in"), 1600);
+ }
+
  document.addEventListener("click", (e) => {
- const selectBtn = e.target.closest("[data-select]");
- if(selectBtn){
- selectedCustomerId = Number(selectBtn.dataset.select);
+ const customerCard = e.target.closest("[data-customer]");
+ if(customerCard){
+ selectedCustomerId = Number(customerCard.dataset.customer);
  renderQueue();
  renderReceipt();
- message.textContent = "Đã chọn khách. Làm kem thật nhanh nhé!";
+ message.textContent = "Đã chọn khách. Làm đúng đơn thật nhanh nhé!";
  return;
  }
 
@@ -787,19 +719,13 @@ ${current ? `YÊU CẦU CỦA KHÁCH
  const type = btn.dataset.type;
  const name = btn.dataset.name;
 
- if(type === "flavor"){
- selected.flavor = flavors.find(f => f.name === name);
- } else if(type === "container"){
- selected.container = containers.find(c => c.name === name);
- } else if(type === "topping"){
+ if(type === "flavor") selected.flavor = flavors.find(f => f.name === name);
+ if(type === "container") selected.container = containers.find(c => c.name === name);
+ if(type === "topping"){
  const exists = selected.toppings.some(t => t.name === name);
- if(exists){
- selected.toppings = selected.toppings.filter(t => t.name !== name);
- } else {
- if(selected.toppings.length >= 3){
- message.textContent = "Tối đa 3 topping thôi nhé!";
- return;
- }
+ if(exists) selected.toppings = selected.toppings.filter(t => t.name !== name);
+ else{
+ if(selected.toppings.length >= 3){ message.textContent = "Tối đa 3 topping thôi nhé!"; return; }
  selected.toppings.push(toppings.find(t => t.name === name));
  }
  }
@@ -810,30 +736,30 @@ ${current ? `YÊU CẦU CỦA KHÁCH
 
  document.getElementById("serveBtn").addEventListener("click", () => {
  const customer = queue.find(c => c.id === selectedCustomerId);
- if(!customer){
- message.textContent = "Bạn chưa chọn khách nào.";
- return;
- }
+ if(!customer){ message.textContent = "Bạn chưa chọn khách nào."; return; }
+
+ const total = selected.flavor.price + selected.container.price + selected.toppings.reduce((sum, t) => sum + t.price, 0);
 
  if(compareOrder(customer)){
- const total = selected.flavor.price + selected.container.price + selected.toppings.reduce((sum, t) => sum + t.price, 0);
  money += total;
  score += 10;
  served += 1;
- message.textContent = `Tuyệt vời! Bạn đã phục vụ ${customer.name} thành công.`;
+ message.textContent = `Tuyệt! Bạn phục vụ đúng cho ${customer.name}. +${total.toLocaleString("vi-VN")}₫`;
+ animateCustomer(customer, false);
 
+ setTimeout(() => {
  queue = queue.filter(c => c.id !== customer.id);
- selectedCustomerId = null;
- resetSelection();
- fillQueue();
+ selectedCustomerId = queue[0]?.id || null;
+ ensureQueue();
+ renderQueue();
+ renderReceipt();
+ }, 900);
  } else {
  score = Math.max(0, score - 3);
  message.textContent = `Sai đơn rồi! ${customer.name} chưa hài lòng.`;
  }
 
  updateStats();
- renderQueue();
- renderReceipt();
  });
 
  document.getElementById("resetBtn").addEventListener("click", () => {
@@ -841,7 +767,7 @@ ${current ? `YÊU CẦU CỦA KHÁCH
  message.textContent = "Đã làm lại ly kem.";
  });
 
- function tick(){
+ function tickQueue(){
  queue.forEach(c => c.wait -= 1);
 
  const leaving = queue.filter(c => c.wait <= 0);
@@ -849,30 +775,30 @@ ${current ? `YÊU CẦU CỦA KHÁCH
  left += leaving.length;
  score = Math.max(0, score - leaving.length * 5);
  if(leaving.some(c => c.id === selectedCustomerId)) selectedCustomerId = null;
-
- message.textContent = `Khách bỏ đi vì chờ quá lâu: ${leaving.map(c => c.name).join(", ")}.`;
+ const names = leaving.map(c => c.name).join(", ");
+ message.textContent = `Khách bỏ đi vì chờ quá lâu: ${names}.`;
  queue = queue.filter(c => c.wait > 0);
- fillQueue();
- updateStats();
  }
 
+ while(queue.length < 4) queue.push(createCustomer());
  renderQueue();
  renderReceipt();
+ updateStats();
  }
 
  renderChoices();
  syncButtons();
  resetSelection();
- fillQueue();
+ ensureQueue();
  updateStats();
 
- setInterval(tick, 1000);
+ setInterval(tickQueue, 1000);
  setInterval(() => {
- if(queue.length < 6 && Math.random() > 0.35){
- queue.push(createCustomer());
- renderQueue();
+ if(queue.length < 6 && Math.random() > 0.42){
+ addCustomerToQueue();
+ updateStats();
  }
- }, 3000);
+ }, 4200);
  </script>
 </body>
 </html>
